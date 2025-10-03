@@ -14,7 +14,7 @@ Obrigado pelo interesse! Este guia resume como rodar localmente, publicar a docu
 A página `docs/` é publicada automaticamente via GitHub Actions.
 - Workflow: `.github/workflows/pages.yml`
 - Dispare com push para `main`/`master`
-- Acesse: `https://Ranilson-Nascimento.github.io/sparkfx/docs/`
+- Acesse: `https://Ranilson-Nascimento.github.io/sparkfx/`
 
 ## Publicação no npm (@ranilson/sparkfx-rn)
 O pacote RN é publicado quando você cria uma tag com prefixo `rn-v`.

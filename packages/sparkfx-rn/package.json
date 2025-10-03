@@ -1,6 +1,6 @@
 {
   "name": "@ranilson/sparkfx-rn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "react-native": "dist/index.js",
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/Ranilson-Nascimento/sparkfx/issues"
   },
-  "homepage": "https://Ranilson-Nascimento.github.io/sparkfx/docs/",
+  "homepage": "https://Ranilson-Nascimento.github.io/sparkfx/",
   "publishConfig": {
     "access": "public"
   },

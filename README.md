@@ -254,7 +254,7 @@ npm publish --access public
 ### GitHub Pages (Web)
 1. Habilite GitHub Pages no repositório
 2. Aponte para a pasta `docs/`
-3. Acesse `https://Ranilson-Nascimento.github.io/sparkfx/docs/`
+3. Acesse `https://Ranilson-Nascimento.github.io/sparkfx/`
 
 ---
 
