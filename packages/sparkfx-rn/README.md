@@ -1,4 +1,4 @@
-# @ranilson/sparkfx-rn v0.6.0 🎓
+# @ranilson/sparkfx-rn
 
 # @ranilson/sparkfx-rn v0.5
 
@@ -7,6 +7,8 @@
 **25+ animações com um único atributo `fx="..."` no React Native (Reanimated + Gesture Handler).**
 
 Efeitos premium que funcionam perfeitamente em **React Native**, **Expo** e **Web**. Física realista, transformações 3D, e animações fluidas de classe mundial.
+
+Demo (Web): https://Ranilson-Nascimento.github.io/sparkfx/
 # @ranilson/sparkfx-rn v0.1.0
 
 
