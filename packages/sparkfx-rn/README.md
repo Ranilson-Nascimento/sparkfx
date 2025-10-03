@@ -1,17 +1,8 @@
 # @ranilson/sparkfx-rn
 
-# @ranilson/sparkfx-rn v0.5
-
-**28+ efeitos de animação de NÍVEL HARVARD com um único atributo `fx="..."` no React Native.**
-
-**25+ animações com um único atributo `fx="..."` no React Native (Reanimated + Gesture Handler).**
-
-Efeitos premium que funcionam perfeitamente em **React Native**, **Expo** e **Web**. Física realista, transformações 3D, e animações fluidas de classe mundial.
-# @ranilson/sparkfx-rn
-
 Biblioteca de efeitos para React Native/Expo usando o atributo `fx`.
 
-Funciona em **React Native**, **Expo** e possui paridade com diversos efeitos do **Web**. Inclui animações de toque, triggers visuais e helpers de alvo (targets) para cenários de e-commerce.
+Funciona em React Native, Expo e tem paridade com diversos efeitos do Web. Inclui animações de toque, triggers visuais e helpers de alvo (targets) para cenários de e-commerce.
 
 Demo (Web): https://Ranilson-Nascimento.github.io/sparkfx/
 
@@ -19,10 +10,13 @@ Demo (Web): https://Ranilson-Nascimento.github.io/sparkfx/
 
 ```bash
 npm install @ranilson/sparkfx-rn react-native-reanimated react-native-gesture-handler
+```
 
-// Em seguida, importe o modo automático no entry point
+Depois, importe o modo automático no entrada do app (por exemplo, `index.js`):
+
+```ts
 import '@ranilson/sparkfx-rn/auto';
-  </View>
+```
 
 ## Uso rápido
 
@@ -52,4 +46,3 @@ export default function App(){
 ## Licença
 
 MIT © Ranilson
-  <Text style={styles.offer}>🔥 50% OFF</Text>
