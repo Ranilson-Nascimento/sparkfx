@@ -25,11 +25,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install deps (root)
-        run: npm ci
+        run: npm install
 
       - name: Install deps (package)
         working-directory: packages/sparkfx-rn
-        run: npm ci
+        run: npm install
 
       - name: Build package
         working-directory: packages/sparkfx-rn
