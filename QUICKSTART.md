@@ -1,4 +1,4 @@
-# 🚀 SparkFX Quick Start Guide
+# SparkFX Quick Start Guide
 
 ## Para Desenvolvedores E-commerce
 
@@ -6,7 +6,7 @@ SparkFX fornece **25+ animações prontas** para React Native e Web com foco em 
 
 ---
 
-## ⚡ Setup Rápido (5 minutos)
+## Setup Rápido (5 minutos)
 
 ### 1. Instale as dependências
 
@@ -83,7 +83,7 @@ const cartTarget = useFxTarget('cart');
 ```tsx
 // Oferta pulsando e brilhando
 <View fx="pulse|glow" style={styles.offer}>
-  <Text>🔥 50% OFF</Text>
+  <Text> 50% OFF</Text>
   <Text>Apenas hoje!</Text>
 </View>
 ```
@@ -110,7 +110,7 @@ const wishlistTarget = useFxTarget('wishlist');
 
 ```tsx
 <Pressable fx="jelly|glow|wobble">
-  <Text>🚀 COMPRAR AGORA</Text>
+  <Text> COMPRAR AGORA</Text>
 </Pressable>
 ```
 
@@ -118,7 +118,7 @@ const wishlistTarget = useFxTarget('wishlist');
 
 ---
 
-## 🎯 Efeitos por Categoria
+## Efeitos por Categoria
 
 ### Feedback de Interação
 - `bounce` - Pressione e sinta o feedback
@@ -141,7 +141,7 @@ const wishlistTarget = useFxTarget('wishlist');
 
 ---
 
-## 🔥 Combos Poderosos
+## Combos Poderosos
 
 Combine efeitos com `|` para criar experiências únicas:
 
@@ -161,16 +161,16 @@ fx="heartbeat|addtocart(wishlist)|ripple"
 
 ---
 
-## 📊 Performance
+## Performance
 
-- ✅ **60 FPS nativo** - Usa Reanimated thread UI
-- ✅ **Zero re-renders** - Animações não afetam React tree
-- ✅ **Leve** - Bundle ~35KB (gzipped)
-- ✅ **Cross-platform** - iOS + Android + Web
+- **60 FPS nativo** - Usa Reanimated thread UI
+- **Zero re-renders** - Animações não afetam React tree
+- **Leve** - Bundle ~35KB (gzipped)
+- **Cross-platform** - iOS + Android + Web
 
 ---
 
-## 🎬 Ver Demo Completo
+## Ver Demo Completo
 
 ```bash
 cd examples/expo-sparkfx-demo
@@ -186,7 +186,7 @@ O demo inclui:
 
 ---
 
-## 📖 Documentação Completa
+## Documentação Completa
 
 - **React Native**: `packages/sparkfx-rn/README.md`
 - **Web**: `packages/sparkfx-web/README.md`
@@ -195,7 +195,7 @@ O demo inclui:
 
 ---
 
-## 💡 Dicas Pro
+## Dicas Pro
 
 ### 1. Targets Múltiplos
 ```tsx
@@ -235,7 +235,7 @@ const handleAction = () => {
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "Reanimated is not configured"
 Adicione no `babel.config.js`:
@@ -258,7 +258,7 @@ import '@ranilson/sparkfx-rn/auto';
 
 ---
 
-## 🤝 Contribuir
+## Contribuir
 
 ```bash
 git clone https://github.com/Ranilson-Nascimento/sparkfx.git
@@ -270,7 +270,7 @@ npm test     # rodar testes
 
 ---
 
-## ⚡ Start Building!
+## Start Building!
 
 ```tsx
 import '@ranilson/sparkfx-rn/auto';
@@ -282,7 +282,7 @@ export default function MyApp() {
   return (
     <View>
       <Pressable fx="jelly|addtocart(cart)">
-        <Text>🚀 Adicionar ao Carrinho</Text>
+        <Text> Adicionar ao Carrinho</Text>
       </Pressable>
       
       <View {...cart}>

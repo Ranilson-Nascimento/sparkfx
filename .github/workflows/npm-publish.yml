@@ -1,9 +1,6 @@
-name: Publish @ranilson/sparkfx-rn to npm
+name: (disabled) Publish @ranilson/sparkfx-rn to npm via tag
 
 on:
-  push:
-    tags:
-      - 'rn-v*'
   workflow_dispatch:
 
 jobs:

@@ -1,5 +1,5 @@
 
-# ⚡ SparkFX
+# SparkFX
 
 **Animações profissionais para React Native e Web com foco em E-commerce**
 
@@ -9,7 +9,7 @@ DEMO (GitHub Pages): https://Ranilson-Nascimento.github.io/sparkfx/
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20Web-lightgrey)]()
 
-## 🎯 O que é SparkFX?
+## O que é SparkFX?
 
 SparkFX é uma biblioteca de animações **plug-and-play** que adiciona efeitos visuais profissionais ao seu app com **uma linha de código**. Perfeito para e-commerce, apps sociais e qualquer interface que precise de feedback visual rico.
 
@@ -27,24 +27,24 @@ Agora com paridade RN/Expo dos efeitos mais recentes do Web: `presspop`, `sparkl
 </Pressable>
 ```
 
-**Resultado**: Jelly bounce → Item voa até o carrinho → Ripple visual → Toast de confirmação 🚀
+Resultado: Jelly bounce → item voa até o carrinho → ripple visual → toast de confirmação.
 
 ---
 
-## ✨ Features
+## Recursos
 
-- ✅ **25+ animações** prontas (bounce, jelly, wobble, pulse, glow, fly, particles, etc.)
-- ✅ **Zero configuração** - Um import e está pronto
-- ✅ **Performance nativa** com React Native Reanimated
-- ✅ **Cross-platform** - iOS, Android e Web
-- ✅ **E-commerce ready** - Efeitos específicos para lojas (addtocart, quickview, wishlist)
-- ✅ **Composição flexível** - Combine efeitos com `|`
-- ✅ **TypeScript** - Tipos completos incluídos
-- ✅ **Testado** - 6 testes passando com Vitest
+- 25+ animações prontas (bounce, jelly, wobble, pulse, glow, fly, particles, etc.)
+- Zero configuração: um import e está pronto
+- Performance nativa com React Native Reanimated
+- Cross-platform: iOS, Android e Web
+- E-commerce ready: efeitos específicos para lojas (addtocart, quickview, wishlist)
+- Composição flexível: combine efeitos com `|`
+- TypeScript: tipos completos incluídos
+- Testado com Vitest
 
 ---
 
-## 📦 Estrutura do Projeto
+## Estrutura do projeto
 
 ```
 sparkfx/
@@ -62,7 +62,7 @@ sparkfx/
 
 ---
 
-## 🚀 Quick Start
+## Início rápido
 
 ### React Native / Expo
 
@@ -104,13 +104,13 @@ export default function App() {
 <div fx="pulse|glow">Oferta Especial!</div>
 ```
 
-📖 **[Ver guia completo](QUICKSTART.md)**
+Veja também o **[guia completo](QUICKSTART.md)**.
 
 ---
 
-## 🎨 Efeitos Disponíveis
+## Efeitos disponíveis
 
-### Interação (Pressionar)
+### Interação (pressionar)
 - `bounce` - Scale feedback
 - `ripple` - Onda de toque
 - `shake` - Vibração
@@ -118,7 +118,7 @@ export default function App() {
 - `jelly` - Bounce elástico
 - `wobble` - Balanço lateral
 
-### Ênfase Visual (Contínuo)
+### Ênfase visual (contínuo)
 - `pulse` - Pulsação
 - `glow` - Brilho animado
 - `float` - Flutuação
@@ -130,7 +130,7 @@ export default function App() {
 - `fly(target)` - Voa para qualquer target
 - `toast(text)` - Mensagem de confirmação
 
-### Avançados (Web)
+### Efeitos avançados (Web)
 - `particles` - Sistema de partículas
 - `spiral` - Espiral 3D
 - `glitch` - Efeito glitch
@@ -146,7 +146,7 @@ export default function App() {
 
 ---
 
-## 🛒 Casos de Uso Reais
+## Casos de uso reais
 
 ### Loja Virtual Completa
 
@@ -159,18 +159,14 @@ export default function Shop() {
   
   return (
     <ScrollView>
-      {/* Header com ícones animados */}
-      <View fx="float">
-        <Text>⚡ Loja SparkFX</Text>
-      </View>
+      {/* Header */}
+      <View fx="float"><Text>Loja SparkFX</Text></View>
       
-      <View {...cart}><Text>🛒 {items}</Text></View>
-      <View {...wishlist}><Text>❤️ {favorites}</Text></View>
+  <View {...cart}><Text>Carrinho: {items}</Text></View>
+  <View {...wishlist}><Text>Favoritos: {favorites}</Text></View>
       
-      {/* Ofertas destacadas */}
-      <View fx="pulse|glow">
-        <Text>🔥 50% OFF - Hoje!</Text>
-      </View>
+      {/* Ofertas */}
+      <View fx="pulse|glow"><Text>50% OFF - Hoje</Text></View>
       
       {/* Grid de produtos */}
       {products.map(product => (
@@ -184,10 +180,8 @@ export default function Shop() {
         </Pressable>
       ))}
       
-      {/* CTA épico */}
-      <Pressable fx="jelly|glow|wobble">
-        <Text>🚀 FINALIZAR COMPRA</Text>
-      </Pressable>
+      {/* CTA */}
+      <Pressable fx="jelly|glow|wobble"><Text>Finalizar compra</Text></Pressable>
     </ScrollView>
   );
 }
@@ -197,7 +191,7 @@ export default function Shop() {
 
 ---
 
-## 📱 Ver Demo Ao Vivo
+## Ver demo ao vivo
 
 ### Expo/React Native
 ```bash
@@ -212,7 +206,7 @@ Se preferir um servidor local, acesse: http://localhost:4173/docs/
 
 ---
 
-## 🧪 Desenvolvimento
+## Desenvolvimento
 
 ### Rodar testes
 ```bash
@@ -233,17 +227,17 @@ npm run dev  # Rebuild automático
 
 ---
 
-## 📖 Documentação
+## Documentação
 
-- **[Quick Start Guide](QUICKSTART.md)** - Setup em 5 minutos
+- **[Quick Start Guide](QUICKSTART.md)** - setup em 5 minutos
 - **[React Native README](packages/sparkfx-rn/README.md)** - API completa RN
 - **[Web README](packages/sparkfx-web/README.md)** - API Web
 - **[Changelog](CHANGELOG.md)** - Histórico de versões
-- **[Demo Interativo](http://localhost:4173/docs/)** - Todos os efeitos ao vivo
+- **Demo local**: http://localhost:4173/docs/
 
 ---
 
-## 🚀 Publicar
+## Publicar
 
 ### NPM (React Native)
 ```bash
@@ -260,7 +254,7 @@ npm publish --access public
 
 ---
 
-## 🤝 Contribuir
+## Contribuir
 
 Contribuições são bem-vindas! Para começar:
 
@@ -272,7 +266,7 @@ Contribuições são bem-vindas! Para começar:
 
 ---
 
-## 📊 Stats
+## Estatísticas
 
 - **30+ animações** prontas
 - **60 FPS** performance nativa
@@ -282,18 +276,18 @@ Contribuições são bem-vindas! Para começar:
 
 ---
 
-## 📄 Licença
+## Licença
 
 MIT © Ranilson
 
 ---
 
-## 🌟 Star History
+## Apoie
 
 Se SparkFX te ajudou, considere dar uma ⭐ no GitHub!
 
 ---
 
-**Feito com ❤️ para a comunidade de desenvolvimento**
+Se SparkFX te ajudou, considere marcar o repositório com uma estrela.
 
 

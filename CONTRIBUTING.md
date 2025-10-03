@@ -17,23 +17,23 @@ A página `docs/` é publicada automaticamente via GitHub Actions.
 - Acesse: `https://Ranilson-Nascimento.github.io/sparkfx/`
 
 ## Publicação no npm (@ranilson/sparkfx-rn)
-O pacote RN é publicado quando você cria uma tag com prefixo `rn-v`.
+Publicação é automática via semantic-release quando há push na branch `main` seguindo Conventional Commits.
 
-1. Bump de versão em `packages/sparkfx-rn/package.json`
-2. Commit e tag:
-   ```bash
-   git add -A
-   git commit -m "chore(release): rn v0.1.0"
-   git tag rn-v0.1.0
-   git push --follow-tags
-   ```
-3. Workflow `.github/workflows/npm-publish.yml` executa build e publish
+Pré-requisitos:
+- Segredo `NPM_TOKEN` configurado (Settings > Secrets > Actions)
 
-Configure o segredo `NPM_TOKEN` no repositório (Settings > Secrets > Actions).
+Como funciona:
+- Commits com `feat:`, `fix:`, etc. geram versão automaticamente
+- Changelog e `packages/sparkfx-rn/package.json` são atualizados
+- O pacote é publicado no npm
+
+Workflows relevantes:
+- `.github/workflows/release.yml` (semantic-release)
+- `.github/workflows/pages.yml` (GitHub Pages)
 
 ## Convenções
 - Commits: conventional commits (feat, fix, chore, docs, test)
 - Branches: feature/minha-feature, fix/bug-x
 - PRs: descreva efeito/feature, screenshots/gifs quando possível
 
-Feliz contribuição! ⚡
+Feliz contribuição! 

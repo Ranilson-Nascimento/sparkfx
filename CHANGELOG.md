@@ -2,14 +2,14 @@
 
 ## v0.5.0 - React Native Parity & E-commerce Focus (Janeiro 2025)
 
-### 🎉 Grandes Novidades
+### Grandes Novidades
 
 - **25+ animações** agora disponíveis tanto em Web quanto em React Native
 - **8 novos efeitos avançados** portados do web para RN
 - **2 efeitos específicos para e-commerce** (addtocart, quickview)
 - **Demo completo** mostrando todos os efeitos em contexto real
 
-### ✨ Novos Efeitos (sparkfx-rn v0.5.0)
+### Novos Efeitos (sparkfx-rn v0.5.0)
 
 #### Efeitos Avançados
 - **jelly** - Bounce elástico com squash & stretch usando Reanimated
@@ -23,7 +23,7 @@
 - **addtocart(target)** - Adiciona ao carrinho com feedback visual, fly animation e toast de confirmação
 - **quickview** - Zoom rápido para visualização de produto
 
-### 🔧 Melhorias Técnicas
+### Melhorias Técnicas
 
 #### sparkfx-rn
 - Todos os efeitos agora usam `react-native-reanimated` para performance nativa
@@ -37,7 +37,7 @@
 - Suporte a parâmetros flexíveis (interval, target, etc.)
 - Type-safe wrappers para cada efeito
 
-### 📱 Expo Demo Atualizado
+### Expo Demo Atualizado
 
 O `examples/expo-sparkfx-demo/App.tsx` agora inclui:
 
@@ -47,7 +47,7 @@ O `examples/expo-sparkfx-demo/App.tsx` agora inclui:
 - **Combos épicos**: jelly|glow|ripple, wobble|addtocart, heartbeat|quickview
 - **Design profissional**: cores, espaçamentos, ícones
 
-### 📚 Documentação
+### Documentação
 
 #### README.md Expandido
 - Tabelas de referência com todos os efeitos e parâmetros
@@ -74,18 +74,18 @@ O `examples/expo-sparkfx-demo/App.tsx` agora inclui:
 </View>
 ```
 
-### 🧪 Testes
+### Testes
 
-- ✅ 6 testes passando (parseFx, registry, useFxTarget)
-- ✅ Build limpo sem erros TypeScript
-- ✅ Sourcemaps gerados para debugging
+- 6 testes passando (parseFx, registry, useFxTarget)
+- Build limpo sem erros TypeScript
+- Sourcemaps gerados para debugging
 
-### 📦 Pacotes Atualizados
+### Pacotes Atualizados
 
 - `@ranilson/sparkfx-rn`: 0.4.0 → **0.5.0**
 - `@ranilson/sparkfx-web`: mantido em 0.5.0 (já atualizado anteriormente)
 
-### 🎯 Foco em E-commerce
+### Foco em E-commerce
 
 Esta versão foi especialmente desenhada para comunidade de desenvolvimento e-commerce:
 
@@ -94,7 +94,7 @@ Esta versão foi especialmente desenhada para comunidade de desenvolvimento e-co
 - Efeitos que aumentam conversão (pulse em ofertas, glow em premium)
 - Performance nativa para experiência fluida
 
-### 🚀 Próximos Passos
+### Próximos Passos
 
 Para usar em seu projeto:
 
