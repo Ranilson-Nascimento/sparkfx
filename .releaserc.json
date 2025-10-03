@@ -1,5 +1,6 @@
 {
   "branches": ["main", {"name": "next", "prerelease": true}],
+  "tagFormat": "rn-v${version}",
   "plugins": [
     ["@semantic-release/commit-analyzer", {"preset": "conventionalcommits"}],
     ["@semantic-release/release-notes-generator", {"preset": "conventionalcommits"}],
