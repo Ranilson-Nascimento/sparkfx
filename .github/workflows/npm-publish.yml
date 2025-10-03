@@ -1,4 +1,4 @@
-name: (disabled) Publish @ranilson/sparkfx-rn to npm via tag
+name: Publish RN package (manual)
 
 on:
   workflow_dispatch:
@@ -22,6 +22,9 @@ jobs:
       - name: Install deps
         working-directory: packages/sparkfx-rn
         run: npm install
+
+      - name: Verify npm auth
+        run: npm whoami
 
       - name: Build
         working-directory: packages/sparkfx-rn
