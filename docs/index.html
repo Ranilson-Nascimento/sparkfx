@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SparkFX — Demonstração Profissional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="./sparkfx-web.js" defer></script>
+    <style>
+      :root {
+        --bg:#05070b;
+        --fg:#eaf6ff;
+        --muted:#96a0b6;
+        --brand:#22d3ee;
+        --accent:#a78bfa;
+        --card:rgba(14,18,26,.92);
+        --border:rgba(110,231,255,.18);
+        --mono:'Fira Code',ui-monospace,Consolas,monospace;
+        --body:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+        --gradient: radial-gradient(60% 40% at 70% -10%, rgba(167,139,250,0.12), transparent 60%);
+        --radius:12px;
+        --radius-lg:16px;
+        --shadow:0 20px 60px -30px rgba(14,165,233,0.25);
+      }
+
+      * {
+        box-sizing:border-box;
+      }
+
+      html,
+      body {
+        margin:0;
+        min-height:100%;
+        background:
+          radial-gradient(120% 120% at 50% 0%, rgba(110,231,255,.10), rgba(167,139,250,.04) 45%, rgba(5,7,11,1) 100%),
+          var(--bg);
+        color:var(--fg);
+        font-family:var(--body);
+        -webkit-font-smoothing:antialiased;
+      }
+
+      body {
+        position:relative;
+        padding-bottom:96px;
+      }
+
+      body::before {
+        content:"";
+        position:fixed;
+        inset:0;
+        background:var(--gradient);
+        pointer-events:none;
+        z-index:-2;
+      }
+
+      .wrap { max-width:1180px; margin:0 auto; padding:28px 22px 80px; }
+
+      header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:8px 0 14px; }
+      header .logo { font-weight:800; letter-spacing:.06em; color:#e6f6ff; text-shadow:0 6px 18px rgba(56,189,248,.15); }
+      header .row { display:flex; gap:10px; flex-wrap:wrap; }
+
+      .hero { margin:10px 0 22px; }
+      .hero h1 { margin:0 0 8px; font-size:2.4rem; line-height:1.15; letter-spacing:.01em; background:linear-gradient(135deg,var(--fg),#bcdfff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+      .hero p { margin:0; color:var(--muted); font-size:1.05rem; }
+
+      .grid { display:grid; gap:18px; }
+      .grid2 { grid-template-columns:1.2fr 1fr; }
+
+      .card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; box-shadow:var(--shadow); }
+      .card h2 { margin:0 0 8px; font-size:1.2rem; }
+      .muted { color:var(--muted); }
+
+      .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+      .btn { background:linear-gradient(135deg,rgba(34,211,238,.96),rgba(167,139,250,.96)); color:#041318; font-weight:700; padding:10px 16px; border-radius:12px; border:none; cursor:pointer; box-shadow:0 18px 34px -20px rgba(56,189,248,.7); transition:transform .16s ease, box-shadow .16s ease, background .2s ease; }
+      .btn:hover,.btn:focus-visible { transform:translateY(-1.5px); box-shadow:0 22px 44px -18px rgba(167,139,250,.8); outline:none; }
+      .btn.secondary { background:rgba(255,255,255,.05); color:#eaf6ff; border:1px solid var(--border); box-shadow:none; }
+      .btn.secondary:hover { background:rgba(255,255,255,.08); }
+  .btn:disabled { opacity:.6; cursor:not-allowed; filter:saturate(.7); }
+
+      .tag { display:inline-block; padding:8px 12px; border-radius:999px; font-size:.86rem; color:#def3ff; background:rgba(255,255,255,.05); border:1px solid var(--border); cursor:pointer; text-decoration:none; transition:transform .16s ease, background .18s ease, box-shadow .18s ease; }
+      .tag:hover { transform:translateY(-1px); background:rgba(34,211,238,.12); box-shadow:0 10px 18px -16px rgba(56,189,248,.8); }
+
+      .fx-input { flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.03); color:var(--fg); outline:none; box-shadow:inset 0 0 0 9999px rgba(255,255,255,0); transition:border-color .15s ease, box-shadow .15s ease; }
+      .fx-input:focus { border-color:rgba(34,211,238,.6); box-shadow:0 0 0 3px rgba(34,211,238,.18); }
+
+      .targets { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+      .demoBox { min-width:160px; min-height:64px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.1); border-radius:16px; background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03)); color:#e9f7ff; font-weight:700; letter-spacing:.02em; box-shadow:0 14px 30px -24px rgba(56,189,248,.6); transition:transform .16s ease, box-shadow .16s ease, background .2s ease; }
+      .demoBox:hover { transform:translateY(-2px); box-shadow:0 22px 44px -24px rgba(167,139,250,.75); }
+
+      .target { border-radius:18px; border:1px dashed rgba(167,139,250,0.4); background:rgba(167,139,250,0.08); padding:18px; color:var(--accent); font-weight:700; min-width:180px; text-align:center; }
+      .target:hover { box-shadow:0 0 0 3px rgba(167,139,250,.22) inset; }
+
+      .tabs { display:flex; align-items:center; gap:8px; margin:0 0 8px; }
+      .tab { background:rgba(255,255,255,.04); color:#dcecff; border:1px solid var(--border); border-radius:999px; padding:8px 12px; cursor:pointer; font-weight:600; }
+      .tab.active { background:linear-gradient(135deg,rgba(34,211,238,.9),rgba(167,139,250,.9)); color:#06121a; border-color:transparent; box-shadow:0 14px 30px -22px rgba(56,189,248,.8); }
+
+      .gallery { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); }
+      .cell { display:grid; gap:8px; }
+      .cell .title { font-weight:700; color:#d7eaff; letter-spacing:.04em; }
+
+      .topbar {
+        position:sticky;
+        top:0;
+        z-index:20;
+        backdrop-filter:blur(18px);
+        background:rgba(5,7,11,0.75);
+        border-bottom:1px solid rgba(110,231,255,0.12);
+      }
+
+      .topbar-inner {
+        max-width:1180px;
+        margin:0 auto;
+        padding:14px 24px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:18px;
+      }
+
+      .brand {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        font-weight:700;
+        font-size:1.1rem;
+        letter-spacing:0.08em;
+      }
+
+      .headline .gradient {
+        background:linear-gradient(135deg,var(--brand),var(--accent));
+        background-clip:text;
+        -webkit-background-clip:text;
+        color:transparent;
+      }
+
+      .lead {
+        color:var(--muted);
+        font-size:1.1rem;
+        line-height:1.6;
+        margin:0;
+      }
+
+      .hero-cards {
+        display:grid;
+        gap:18px;
+      }
+
+      .hero-card {
+        background:var(--card);
+        border:1px solid var(--border);
+        border-radius:14px;
+        padding:14px;
+      }
+
+      .playground {
+        display:grid;
+        grid-template-columns:1.2fr 1fr;
+        gap:18px;
+        align-items:start;
+      }
+
+      .demo-card-small {
+        width:160px;
+        height:96px;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        background:rgba(255,255,255,0.04);
+        display:grid;
+        place-items:center;
+      }
+
+      .target {
+        border-radius:18px;
+        border:1px dashed rgba(167,139,250,0.4);
+        background:rgba(167,139,250,0.08);
+        padding:18px;
+        color:var(--accent);
+        font-weight:700;
+        min-width:180px;
+        text-align:center;
+      }
+
+      pre {
+        margin:0;
+        background:rgba(255,255,255,0.03);
+        border-radius:12px;
+        border:1px solid rgba(110,231,255,0.18);
+        padding:14px 16px;
+        overflow:auto;
+        font-family:var(--mono);
+        font-size:0.85rem;
+        color:#f1f5ff;
+      }
+
+      code {
+        font-family:var(--mono);
+      }
+
+      .note {
+        margin:0;
+        font-size:0.85rem;
+        color:rgba(230,239,255,0.75);
+      }
+
+      .note strong {
+        color:var(--brand);
+      }
+
+      .guides {
+        display:grid;
+        gap:24px;
+        grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      }
+
+      .guide-card {
+        background:var(--card);
+        border-radius:var(--radius-lg);
+        border:1px solid rgba(167,139,250,0.22);
+        padding:24px 26px;
+        box-shadow:var(--shadow);
+        display:grid;
+        gap:18px;
+      }
+
+      .showcase-grid {
+        display:grid;
+        gap:26px;
+        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      }
+
+      .showcase-card {
+        background:linear-gradient(160deg,rgba(17,24,39,0.94) 0%,rgba(15,23,42,0.62) 48%,rgba(26,23,44,0.9) 100%);
+        border-radius:var(--radius-lg);
+        border:1px solid rgba(110,231,255,0.14);
+        padding:26px 28px;
+        box-shadow:0 30px 70px -32px rgba(15,20,32,0.8);
+        display:grid;
+        gap:20px;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .showcase-card::after {
+        content:"";
+        position:absolute;
+        inset:-40% -20% auto;
+        height:140px;
+        background:radial-gradient(circle at top,rgba(110,231,255,0.18),transparent 55%);
+        opacity:0.8;
+        pointer-events:none;
+        transform:rotate(-8deg);
+      }
+
+      .showcase-card h3 {
+        margin:0;
+        font-size:1.15rem;
+        font-weight:700;
+        letter-spacing:0.02em;
+      }
+
+      .showcase-card p {
+        margin:0;
+        color:rgba(226,239,255,0.78);
+        line-height:1.55;
+        font-size:0.97rem;
+      }
+
+      .showcase-actions {
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+        align-items:center;
+      }
+
+      .combo-button {
+        background:linear-gradient(135deg,rgba(34,211,238,0.92),rgba(167,139,250,0.95));
+        color:#06121a;
+        font-weight:700;
+        padding:12px 18px;
+        border-radius:12px;
+        border:none;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        box-shadow:0 22px 40px -22px rgba(56,189,248,0.9);
+        transition:transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .combo-button:hover,
+      .combo-button:focus-visible {
+        transform:translateY(-2px);
+        box-shadow:0 24px 48px -20px rgba(167,139,250,0.9);
+        outline:none;
+      }
+
+      .combo-button svg {
+        width:20px;
+        height:20px;
+      }
+
+      .icon-bubble {
+        width:54px;
+        height:54px;
+        border-radius:18px;
+        display:grid;
+        place-items:center;
+        background:linear-gradient(145deg,rgba(110,231,255,0.2),rgba(167,139,250,0.22));
+        border:1px solid rgba(167,139,250,0.38);
+        color:var(--brand);
+        box-shadow:0 16px 32px -20px rgba(14,165,233,0.65);
+      }
+
+      .showcase-tags {
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+
+      .tag-chip {
+        padding:6px 12px;
+        border-radius:999px;
+        font-size:0.78rem;
+        letter-spacing:0.04em;
+        text-transform:uppercase;
+        background:rgba(255,255,255,0.05);
+        border:1px solid rgba(110,231,255,0.18);
+        color:rgba(223,238,255,0.7);
+      }
+
+      .target.small {
+        min-width:auto;
+        padding:10px 14px;
+        font-size:0.85rem;
+      }
+
+      .icon-row {
+        display:flex;
+        gap:14px;
+        flex-wrap:wrap;
+      }
+
+      .icon-pill {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 16px;
+        border-radius:999px;
+        background:rgba(15,23,42,0.72);
+        border:1px solid rgba(110,231,255,0.18);
+        color:rgba(233,244,255,0.88);
+        font-weight:600;
+        font-size:0.9rem;
+      }
+
+      .icon-pill svg {
+        width:18px;
+        height:18px;
+      }
+
+      .guide-card h3 {
+        margin:0;
+        font-size:1.15rem;
+      }
+
+      .guide-card ul {
+        margin:0;
+        padding-left:20px;
+        color:var(--muted);
+        line-height:1.6;
+      }
+
+      footer {
+        max-width:1180px;
+        margin:56px auto 0;
+        padding:24px;
+        color:rgba(230,239,255,0.6);
+        font-size:0.9rem;
+        display:flex;
+        justify-content:space-between;
+        gap:16px;
+        flex-wrap:wrap;
+      }
+
+      footer a { color:var(--brand); text-decoration:none; border-bottom:1px dashed rgba(34,211,238,.25); }
+      footer a:hover { color:#8ae9ff; border-bottom-color:transparent; }
+
+      .simulate-shake {
+        animation:fx-shake 0.6s ease;
+      }
+
+      .btn:focus-visible, .tag:focus-visible, .fx-input:focus-visible, .tab:focus-visible { outline:none; box-shadow:0 0 0 3px rgba(34,211,238,.22); border-color:rgba(34,211,238,.6); }
+
+      @keyframes fx-shake {
+        0% { transform:translateX(0) }
+        20% { transform:translateX(-4px) }
+        40% { transform:translateX(4px) }
+        60% { transform:translateX(-3px) }
+        80% { transform:translateX(3px) }
+        100% { transform:translateX(0) }
+      }
+
+      .hint {
+        font-size:0.82rem;
+        color:var(--muted);
+        margin:0;
+      }
+
+      @media (max-width:720px) {
+        .grid2 { grid-template-columns:1fr; }
+        .hero h1 { font-size:1.9rem; }
+        .wrap { padding:22px 16px 70px; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="bg-trails" style="position:fixed;inset:0;z-index:-1"></canvas>
+    <div class="wrap">
+      <header>
+        <div class="logo">⚡ SparkFX</div>
+        <div class="row">
+          <a class="tag" href="#playground">Playground</a>
+          <a class="tag" href="#gallery">Galeria</a>
+          <a class="tag" href="#scenes">Cenas</a>
+          <a class="tag" href="#usage">Uso</a>
+        </div>
+      </header>
+
+      <section class="hero">
+        <h1>Efeitos instantâneos com um único atributo fx</h1>
+        <p>Sem dependências. Funciona em qualquer página. Clique e veja.</p>
+        <p class="muted" style="margin-top:8px">Novidade: paridade RN/Expo para <code>presspop</code>, <code>sparkle</code>, <code>rings</code> e <code>fireworks</code> — os mesmos nomes do Web agora funcionam no app.</p>
+      </section>
+
+      <section id="playground" class="grid grid2">
+        <div class="card">
+          <h2>🎮 Playground</h2>
+          <p class="muted">Digite combinações (ex.: <code>jelly|ripple</code>, <code>fly(cart)</code>, <code>confetti</code>) e aplique.</p>
+          <div class="row" style="margin-bottom:10px">
+            <input id="fx-input" class="fx-input" value="jelly|ripple" />
+            <button id="apply" class="btn">Aplicar</button>
+            <button id="reset" class="btn secondary">Reset</button>
+          </div>
+          <div class="row" style="margin-bottom:10px">
+            <button class="tag" data-q="fly(cart)|ripple">🛒 fly(cart)</button>
+            <button class="tag" data-q="bounce|ripple">bounce|ripple</button>
+            <button class="tag" data-q="jelly|pulse">jelly|pulse</button>
+            <button class="tag" data-q="confetti">confetti</button>
+            <button class="tag" data-q="toast(text='Salvo!')">toast</button>
+            <button class="tag" data-q="spiral">spiral</button>
+            <button class="tag" data-q="sparkle">sparkle</button>
+            <button class="tag" data-q="rings">rings</button>
+            <button class="tag" data-q="fireworks">fireworks</button>
+          </div>
+          <div class="targets">
+            <div id="demo" fx="jelly|ripple" class="demoBox">Clique aqui</div>
+            <div id="cart" data-fx-target="cart" class="target">🛒</div>
+          </div>
+          <p class="muted">Último fx: <code id="fx-last">jelly|ripple</code></p>
+        </div>
+        <div class="card">
+          <h2>📋 Código</h2>
+          <div class="tabs">
+            <button class="tab active" data-tab="html">HTML</button>
+            <button class="tab" data-tab="react">React</button>
+            <button class="tab" data-tab="rn">React Native</button>
+            <span style="flex:1"></span>
+            <button id="copy" class="btn">Copiar</button>
+          </div>
+          <pre>
+<code id="code-html">&lt;button fx="jelly|ripple"&gt;Comprar&lt;/button&gt;</code>
+<code id="code-react" style="display:none;">&lt;button fx="jelly|ripple"&gt;Comprar&lt;/button&gt;</code>
+<code id="code-rn" style="display:none;">&lt;Pressable fx="jelly|ripple" style={styles.button}&gt;\n  &lt;Text&gt;Comprar&lt;/Text&gt;\n&lt;/Pressable&gt;</code>
+          </pre>
+        </div>
+      </section>
+
+      <section id="gallery" class="card" style="margin-top:18px">
+        <h2>🌟 Galeria de efeitos</h2>
+        <p class="muted">Exemplos funcionais, agrupados por tipo.</p>
+        <div class="gallery">
+          <div class="cell">
+            <div class="title">Press (clique)</div>
+            <div class="row" style="gap:8px">
+              <button class="btn" fx="bounce">bounce</button>
+              <button class="btn" fx="ripple">ripple</button>
+              <button class="btn" fx="presspop">presspop</button>
+              <button class="btn" fx="jelly">jelly</button>
+              <button class="btn" fx="wobble">wobble</button>
+              <button class="btn" fx="pulse">pulse</button>
+              <button class="btn" fx="heartbeat">heartbeat</button>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="title">Hover</div>
+            <div class="row" style="gap:8px">
+              <div class="demoBox" fx="hoverlift">hoverlift</div>
+              <div class="demoBox" fx="shine">shine</div>
+              <div class="demoBox" fx="glow">glow</div>
+              <div class="demoBox" fx="float">float</div>
+              <div class="demoBox" fx="tilt">tilt</div>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="title">Trigger</div>
+            <div class="row" style="gap:8px">
+              <button class="btn secondary" fx="confetti">confetti</button>
+              <button class="btn secondary" fx="toast(text='Olá!')">toast</button>
+              <button class="btn secondary" fx="spiral">spiral</button>
+              <button class="btn secondary" fx="particles">particles</button>
+              <button class="btn secondary" fx="shockwave">shockwave</button>
+              <button class="btn secondary" fx="fly(cart)">fly(cart)</button>
+              <button class="btn secondary" fx="sparkle">sparkle</button>
+              <button class="btn secondary" fx="rings">rings</button>
+              <button class="btn secondary" fx="fireworks">fireworks</button>
+              <button class="btn secondary" fx="magneticpull(cart)">magneticpull</button>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="title">Especiais</div>
+            <div class="row" style="gap:8px">
+              <div class="demoBox" fx="morphbg">morphbg</div>
+              <div class="demoBox" fx="neon">neon</div>
+              <div class="demoBox" fx="glitch">glitch</div>
+              <button class="btn" fx="typewriter">typewriter</button>
+              <button class="btn" fx="countup">countup</button>
+              <div class="demoBox" fx="stagger" style="display:flex;gap:8px">
+                <span class="tag">A</span><span class="tag">B</span><span class="tag">C</span><span class="tag">D</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="crazylab" class="card" style="margin-top:18px">
+        <h2>🧪 Laboratório Insano</h2>
+        <p class="muted">Nomes malucos que combinam efeitos existentes. Clique para ver.</p>
+        <div class="gallery">
+          <div class="cell">
+            <div class="row" style="gap:8px">
+              <button class="btn" data-q="supernova">supernova</button>
+              <button class="btn" data-q="warpdrive">warpdrive</button>
+              <button class="btn" data-q="blackhole">blackhole</button>
+              <button class="btn" data-q="meteor">meteor</button>
+              <button class="btn" data-q="starlight">starlight</button>
+              <button class="btn" data-q="vortex">vortex</button>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="row" style="gap:8px">
+              <button class="btn secondary" data-q="timewarp">timewarp</button>
+              <button class="btn secondary" data-q="matrix">matrix</button>
+              <button class="btn secondary" data-q="rainbow">rainbow</button>
+              <button class="btn secondary" data-q="aurora">aurora</button>
+              <button class="btn secondary" data-q="quantum">quantum</button>
+              <button class="btn secondary" data-q="glitchstorm">glitchstorm</button>
+            </div>
+          </div>
+        </div>
+        <p class="hint">Dica: você pode digitar qualquer um desses nomes no input do Playground; eles viram combinações reais automaticamente.</p>
+      </section>
+
+      <section id="scenes" class="card" style="margin-top:18px">
+        <h2>🎬 Cenas</h2>
+        <p class="muted">Demonstrações encadeadas prontas para uso.</p>
+        <div class="gallery">
+          <div class="cell">
+            <div class="title">E-commerce CTA</div>
+            <div class="row" style="gap:10px;align-items:center">
+              <button id="scene-add" class="btn" fx="bounce|ripple">Adicionar ao carrinho</button>
+              <div id="sceneCart" class="target" data-fx-target="sceneCart">🛒</div>
+              <button id="scene-run" class="btn secondary">▶ Rodar</button>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="title">Landing Hero</div>
+            <div class="row" style="gap:10px;align-items:center">
+              <div id="scene-hero" class="demoBox" fx="glow">SparkFX transforma sua UI</div>
+              <button id="scene-hero-run" class="btn secondary">▶ Rodar</button>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="title">Dashboard KPIs</div>
+            <div class="row" style="gap:10px;align-items:center">
+              <div id="kpi" class="demoBox">0</div>
+              <button id="scene-kpi-run" class="btn secondary">▶ Rodar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="usage" class="card" style="margin-top:18px">
+        <h2>📦 Como usar</h2>
+        <p class="muted">HTML puro, React e React Native.</p>
+        <div class="tabs">
+          <button class="tab active" data-tab="u-html">HTML</button>
+          <button class="tab" data-tab="u-react">React</button>
+          <button class="tab" data-tab="u-rn">React Native</button>
+        </div>
+        <pre>
+<code id="u-html">&lt;script src="/sparkfx-web.js"&gt;&lt;/script&gt;\n&lt;button fx="jelly|ripple"&gt;Comprar&lt;/button&gt;</code>
+<code id="u-react" style="display:none;">export default () =&gt; &lt;button fx="jelly|ripple"&gt;Comprar&lt;/button&gt;</code>
+<code id="u-rn" style="display:none;">&lt;Pressable fx="jelly|ripple"&gt;\n  &lt;Text&gt;Comprar&lt;/Text&gt;\n&lt;/Pressable&gt;\n\n&lt;!-- Novos efeitos RN/Expo com o mesmo nome do Web --&gt;\n&lt;Pressable fx="presspop|sparkle(color='#f5d0fe')"&gt;\n  &lt;Text&gt;Spark Pop&lt;/Text&gt;\n&lt;/Pressable&gt;</code>
+        </pre>
+      </section>
+
+      <section id="magnet" class="card" style="margin-top:18px">
+        <h2>🧲 Grade Magnética + Tilt</h2>
+        <p class="muted">Experimento visual (somente docs): passe o mouse para ver a atração e inclinação 3D.</p>
+        <div id="mag-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;">
+          <div class="demoBox mag">Box A</div>
+          <div class="demoBox mag">Box B</div>
+          <div class="demoBox mag">Box C</div>
+          <div class="demoBox mag">Box D</div>
+          <div class="demoBox mag">Box E</div>
+          <div class="demoBox mag">Box F</div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2025 SparkFX</span>
+        <a class="muted" href="#top">Voltar ao topo</a>
+      </footer>
+    </div>
+
+    <script>
+      // Particle trail background (disabled on touch devices)
+      (function(){
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const canvas = document.getElementById('bg-trails');
+        if(!canvas || isTouch) return;
+        const ctx = canvas.getContext('2d');
+        const DPR = Math.min(2, window.devicePixelRatio || 1);
+        let W=0,H=0; function resize(){ const {innerWidth, innerHeight} = window; W=innerWidth; H=innerHeight; canvas.width=W*DPR; canvas.height=H*DPR; canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0);} resize();
+        window.addEventListener('resize', resize);
+
+        const particles=[]; const MAX=120; let mx=W/2, my=H/3;
+        function spawn(x,y){ for(let i=0;i<3;i++){ particles.push({x,y, vx:(Math.random()-0.5)*1.2, vy:(Math.random()-0.5)*1.2 - 0.6, r:1+Math.random()*2.5, life:1, hue: Math.random()<0.5?190:260}); if(particles.length>MAX) particles.shift(); } }
+        window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; spawn(mx,my); });
+
+        function step(){ ctx.clearRect(0,0,W,H); for(const p of particles){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.015; p.life*=0.97; ctx.beginPath(); const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6); const a = Math.max(0, Math.min(1, p.life)); g.addColorStop(0, `hsla(${p.hue}, 90%, 70%, ${0.22*a})`); g.addColorStop(1, 'hsla(0,0%,0%,0)'); ctx.fillStyle=g; ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2); ctx.fill(); }
+          requestAnimationFrame(step);
+        }
+        step();
+      })();
+
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  function refreshNode(el){ if(!el || !el.parentNode) return el; const n = el.cloneNode(true); el.parentNode.replaceChild(n, el); return n; }
+
+      // Playground
+  let demo = $('#demo');
+      const input = $('#fx-input');
+      const last = $('#fx-last');
+      const btnApply = $('#apply');
+      const btnReset = $('#reset');
+
+      function onlyTriggers(seq){
+        const triggers = ['particles','spiral','shockwave','typewriter','countup','stagger','confetti','fly','toast','sparkle','rings','fireworks','magneticpull'];
+        const parts = (seq||'').split('|').map(s=>s.trim().toLowerCase()).filter(Boolean);
+        return parts.length>0 && parts.every(p=>triggers.includes(p.split('(')[0]));
+      }
+
+      const ALIASES = {
+        supernova: 'confetti(count=64,spread=90)|shockwave',
+        warpdrive: 'spiral|particles',
+        blackhole: 'spiral|pulse',
+        meteor: 'fly(cart)|glow',
+        starlight: 'shine|glow',
+        vortex: 'spiral|wobble',
+        timewarp: 'typewriter(speed=36)|glitch',
+        matrix: 'typewriter(speed=28)',
+        rainbow: 'neon|glow',
+        aurora: 'morphbg|glow',
+        quantum: 'glitch|pulse',
+        glitchstorm: 'glitch|confetti(count=48)'
+      };
+
+      function expandAliases(seq){
+        return (seq||'')
+          .split('|')
+          .map(s=>{
+            const key = s.trim().toLowerCase();
+            return ALIASES[key] || s;
+          })
+          .join('|');
+      }
+
+      function resetFx(el){
+        if(!el) return;
+        // remove classes and inline styles commonly used by effects
+        (el.className||'').split(/\s+/).filter(c=>c.startsWith('fx-')).forEach(c=> el.classList.remove(c));
+        el.classList.remove('fx-ripple-container');
+        Object.assign(el.style, { animation:'', transform:'', filter:'', boxShadow:'', background:'', transition:'' });
+        el.removeAttribute('fx');
+        try{ delete el.__sparkAttached; }catch(_){ el.__sparkAttached = undefined; }
+      }
+
+      function hasPress(seq){
+        const press = ['bounce','ripple'];
+        const parts = (seq||'').split('|').map(s=>s.trim().toLowerCase()).filter(Boolean);
+        return parts.some(p=> press.includes(p.split('(')[0]));
+      }
+
+      function simulatePress(el){
+        try{
+          el.dispatchEvent(new MouseEvent('mousedown', {bubbles:true}));
+          setTimeout(()=> el.dispatchEvent(new MouseEvent('mouseup', {bubbles:true})), 80);
+        }catch{}
+      }
+
+      function safeClick(el){
+        if(!el) return;
+        const stop = (e)=>{ e.stopPropagation(); e.preventDefault(); };
+        // capture once to prevent bubbling to parents/siblings
+        el.addEventListener('click', stop, {once:true, capture:true});
+        try { el.click(); } finally {
+          // no-op; listener auto-removed due to once:true
+        }
+      }
+
+      function applyFx(seq){
+        const original = (seq||'').trim(); if(!original) return;
+        const value = expandAliases(original).trim();
+  // replace demo node to drop any old event listeners before reattaching
+  demo = refreshNode(demo);
+  resetFx(demo);
+  // avoid persistent effects confusing the playground
+  const sceneCart = document.getElementById('sceneCart'); if(sceneCart) refreshNode(sceneCart) && resetFx($('#sceneCart'));
+  const pgCart = document.getElementById('cart'); if(pgCart) refreshNode(pgCart) && resetFx($('#cart'));
+        demo.setAttribute('fx', value);
+        window.sparkfx?.rescan?.(); last.textContent = value;
+  if(onlyTriggers(value)) setTimeout(()=> safeClick(demo), 20);
+        else if(hasPress(value)) setTimeout(()=> simulatePress(demo), 30);
+        // Atualiza snippets
+        $('#code-html').textContent = `<button fx="${value}">Comprar</button>`;
+        $('#code-react').textContent = `<button fx="${value}">Comprar</button>`;
+        $('#code-rn').textContent = `<Pressable fx="${value}" style={styles.button}>\n  <Text>Comprar</Text>\n</Pressable>`;
+      }
+
+      btnApply?.addEventListener('click', ()=>applyFx(input.value));
+      btnReset?.addEventListener('click', ()=>{ input.value='jelly|ripple'; applyFx(input.value); });
+      $$('.tag[data-q]').forEach(el=> el.addEventListener('click', ()=>{ input.value=el.getAttribute('data-q'); applyFx(input.value); }));
+      // Crazy Lab quick buttons: delegation + local apply on clicked element
+      const crazy = document.getElementById('crazylab');
+      crazy?.addEventListener('click', (ev)=>{
+        const el = ev.target && (ev.target.closest ? ev.target.closest('[data-q]') : null);
+        if(!el) return;
+        const q = el.getAttribute('data-q')||'';
+        input.value = q; // sync playground input
+        const expanded = (function(){
+          const parts = q.split('|').map(s=>s.trim()).filter(Boolean);
+          return parts.map(p=> (ALIASES[p]?.trim() || p)).join('|');
+        })();
+        // replace node to drop old listeners and apply locally
+        const node = refreshNode(el);
+        node.removeAttribute('fx'); try{ delete node.__sparkAttached; }catch{}
+        node.setAttribute('fx', expanded);
+        window.sparkfx?.rescan?.();
+        // if only triggers, auto-click the element
+        const triggers = ['particles','spiral','shockwave','typewriter','countup','stagger','confetti','fly','toast'];
+        const onlyTrig = expanded.split('|').every(s=> triggers.includes(s.split('(')[0]));
+        if(onlyTrig) setTimeout(()=> safeClick(node), 20);
+        // also update the top preview snippets to the expanded value, without running the demo
+        $('#fx-last').textContent = expanded;
+        $('#code-html').textContent = `<button fx="${expanded}">Comprar</button>`;
+        $('#code-react').textContent = `<button fx="${expanded}">Comprar</button>`;
+        $('#code-rn').textContent = `<Pressable fx="${expanded}" style={styles.button}>\n  <Text>Comprar</Text>\n</Pressable>`;
+      });
+
+      // Code Tabs (duas áreas: Playground e Uso)
+      function setTabs(container, tab){
+        container.querySelectorAll('.tab').forEach(btn=>btn.classList.toggle('active', btn.getAttribute('data-tab')===tab));
+      }
+      $$('.tabs').forEach(tabs=>{
+        tabs.querySelectorAll('.tab').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const tab = btn.getAttribute('data-tab');
+            setTabs(tabs, tab);
+            const pre = tabs.parentElement?.querySelector('pre');
+            if(!pre) return;
+            pre.querySelectorAll('code').forEach(code=>{ code.style.display = (code.id.endsWith(tab.replace('u-','')))?'block':'none'; });
+          });
+        });
+      });
+
+      // Copy (área Playground)
+      $('#copy')?.addEventListener('click', ()=>{
+        const active = $$('.tabs .tab.active')[0]?.getAttribute('data-tab')||'html';
+        const txt = active==='html'? $('#code-html').textContent : active==='react'? $('#code-react').textContent : $('#code-rn').textContent;
+        navigator.clipboard?.writeText(txt).then(()=>{ demo.setAttribute('fx','toast(text=Copiado!, t=1200)'); window.sparkfx?.rescan?.(); demo.click(); applyFx(input.value); });
+      });
+
+      // Helper para cenas
+      function setFx(el, value, {auto=true}={}){
+        if(!el || !value) return;
+        el.removeAttribute('fx'); delete el.__sparkAttached;
+        el.setAttribute('fx', value);
+        window.sparkfx?.rescan?.();
+        if(auto){
+          const triggers=['particles','spiral','shockwave','typewriter','countup','stagger','confetti','fly','toast'];
+          const onlyTrig = value.split('|').every(s=> triggers.includes(s.split('(')[0]));
+          if(onlyTrig) setTimeout(()=> el.click(), 20);
+        }
+      }
+
+      // Scenes
+      $('#scene-run')?.addEventListener('click', (e)=>{
+        const btn = $('#scene-add');
+        const cart = $('#sceneCart');
+        const runBtn = e.currentTarget;
+        if(!btn || !cart) return;
+        runBtn.disabled = true;
+        const T_FLY = 800;
+        // 1) feedback de clique no botão (já tem bounce|ripple)
+        btn.click();
+        // 2) fly até o carrinho
+        setTimeout(()=>{ setFx(btn, `fly(sceneCart, t=${T_FLY})`); btn.click(); }, 150);
+        // 3) pulso no carrinho quando o voo terminar
+        setTimeout(()=>{ setFx(cart, 'pulse'); cart.click(); }, 150 + T_FLY + 80);
+        // 4) toast no botão
+        setTimeout(()=>{ setFx(btn, 'toast(text=Adicionado!, t=1200)'); btn.click(); }, 150 + T_FLY + 260);
+        // 5) confete festivo
+        setTimeout(()=>{ setFx(btn, 'confetti(count=64, spread=84)'); btn.click(); }, 150 + T_FLY + 480);
+        // 6) restaurar padrão
+        setTimeout(()=>{ setFx(btn, 'bounce|ripple', {auto:false}); runBtn.disabled = false; }, 150 + T_FLY + 1000);
+        // 7) limpar efeito persistente do carrinho para não confundir o Playground
+        setTimeout(()=>{ try { resetFx(cart); } catch(_){} }, 150 + T_FLY + 1200);
+      });
+
+      $('#scene-hero-run')?.addEventListener('click', (e)=>{
+        const hero = $('#scene-hero');
+        const runBtn = e.currentTarget; runBtn.disabled = true;
+        // 1) brilho inicial
+        setFx(hero, 'shine|glow', {auto:false}); setTimeout(()=>hero.click(), 20);
+        // 2) typewriter no texto
+        setTimeout(()=>{ hero.textContent='SparkFX dá vida à sua UI'; setFx(hero, 'typewriter(speed=40)'); hero.click(); }, 900);
+        setTimeout(()=>{ runBtn.disabled = false; }, 2000);
+      });
+
+      $('#scene-kpi-run')?.addEventListener('click', (e)=>{
+        const kpi = $('#kpi');
+        const runBtn = e.currentTarget; runBtn.disabled = true;
+        // reset estado
+        kpi.innerHTML='0'; setFx(kpi,'pulse',{auto:false});
+        // countup
+        setTimeout(()=>{ setFx(kpi,'countup(from=0, to=1284, duration=1800)'); kpi.click(); }, 200);
+        // stagger chips após terminar o countup
+        setTimeout(()=>{ setFx(kpi,'stagger(delay=60)',{auto:false}); kpi.innerHTML = '<span class="tag">+12%</span><span class="tag">+38</span><span class="tag">1.2k</span>'; kpi.click(); }, 2200);
+        setTimeout(()=>{ runBtn.disabled = false; }, 2800);
+      });
+
+      // Init
+      window.addEventListener('load', ()=>{ window.sparkfx?.rescan?.(); applyFx(input.value); });
+
+      // Magnetic + Tilt grid (docs-only demo)
+      (function(){
+        const grid = document.getElementById('mag-grid'); if(!grid) return;
+        const items = Array.from(grid.querySelectorAll('.mag'));
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints>0; if(isTouch) return;
+        const strength = 42; const tiltMax = 10; let anim;
+        function onMove(e){
+          cancelAnimationFrame(anim);
+          const mx = e.clientX, my = e.clientY;
+          anim = requestAnimationFrame(()=>{
+            items.forEach(el=>{
+              const r = el.getBoundingClientRect();
+              const cx = r.left + r.width/2; const cy = r.top + r.height/2;
+              const dx = mx - cx; const dy = my - cy; const dist = Math.hypot(dx,dy) || 1;
+              const pull = Math.max(0, strength - dist/4);
+              const tx = (dx/dist) * pull * 0.2; const ty = (dy/dist) * pull * 0.2;
+              const rx = Math.max(-tiltMax, Math.min(tiltMax, -(dy/r.height)*tiltMax));
+              const ry = Math.max(-tiltMax, Math.min(tiltMax,  (dx/r.width)*tiltMax));
+              el.style.transform = `translate(${tx}px, ${ty}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+              el.style.transition = 'transform 0.06s ease-out';
+            });
+          });
+        }
+        function onLeave(){ items.forEach(el=>{ el.style.transform='translate(0,0) rotateX(0) rotateY(0)'; el.style.transition='transform .25s ease'; }); }
+        window.addEventListener('mousemove', onMove);
+        grid.addEventListener('mouseleave', onLeave);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste SparkFX</title>
+  <script src="./packages/sparkfx-web/dist/sparkfx-web.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #0a0d14;
+      color: white;
+      font-family: system-ui;
+      min-height: 100vh;
+    }
+    
+    .test-box {
+      display: inline-block;
+      padding: 2rem 3rem;
+      background: linear-gradient(135deg, #22d3ee, #a78bfa);
+      color: #0a0d14;
+      font-weight: 700;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      margin: 20px;
+      user-select: none;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #22d3ee;
+      margin-bottom: 30px;
+    }
+    
+    .info {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(110,231,255,0.2);
+    }
+    
+    button {
+      background: #22d3ee;
+      color: #0a0d14;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 5px;
+      font-size: 14px;
+    }
+    
+    button:hover {
+      background: #6ee7ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Teste SparkFX Web</h1>
+    
+    <div class="info">
+      <h3>Status:</h3>
+      <p id="status">Carregando...</p>
+      <p id="version"></p>
+    </div>
+
+    <h2>Efeitos de Clique (bounce, ripple, jelly, wobble)</h2>
+    
+    <div fx="bounce" class="test-box">
+      ✨ bounce
+    </div>
+    
+    <div fx="ripple" class="test-box">
+      💧 ripple
+    </div>
+    
+    <div fx="jelly" class="test-box">
+      🍮 jelly
+    </div>
+    
+    <div fx="wobble" class="test-box">
+      🌀 wobble
+    </div>
+    
+    <div fx="bounce|ripple" class="test-box">
+      🎯 bounce|ripple
+    </div>
+    
+    <div fx="jelly|ripple" class="test-box">
+      🎪 jelly|ripple
+    </div>
+
+    <h2>Efeitos de Hover (hoverlift, shine, glow, float)</h2>
+    
+    <div fx="hoverlift" class="test-box">
+      ⬆️ hoverlift
+    </div>
+    
+    <div fx="shine" class="test-box">
+      ✨ shine
+    </div>
+    
+    <div fx="glow" class="test-box">
+      💫 glow
+    </div>
+    
+    <div fx="float" class="test-box">
+      🎈 float
+    </div>
+
+    <h2>Teste Manual</h2>
+    <div>
+      <input type="text" id="manual-fx" placeholder="Ex: jelly|ripple" style="padding: 10px; width: 300px; font-size: 14px; background: rgba(255,255,255,0.1); border: 1px solid #22d3ee; color: white; border-radius: 8px;">
+      <button onclick="applyManual()">Aplicar</button>
+    </div>
+    <br>
+    <div id="manual-box" class="test-box">
+      🎮 Clique para testar
+    </div>
+
+    <div style="margin-top: 40px; position: relative; height: 200px; border: 1px dashed rgba(110,231,255,0.3); border-radius: 12px; padding: 20px;">
+      <h3>Teste fly(cart)</h3>
+      <div fx="fly(cart)" class="test-box">
+        🛒 Clique: fly(cart)
+      </div>
+      <div id="cart" data-fx-target="cart" style="position: absolute; top: 20px; right: 20px; width: 60px; height: 60px; background: rgba(14,18,26,0.92); border: 2px solid #22d3ee; border-radius: 12px; display: grid; place-items: center; font-size: 2rem;">
+        🛒
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h3>Testes de Trigger</h3>
+      <button onclick="testEffect('particles')">🎆 particles</button>
+      <button onclick="testEffect('spiral')">🌀 spiral</button>
+      <button onclick="testEffect('confetti')">🎉 confetti</button>
+      <button onclick="testEffect('shockwave')">💥 shockwave</button>
+      <button onclick="testEffect('toast(text=Funcionou!)')">📢 toast</button>
+    </div>
+    <div id="trigger-box" class="test-box" style="margin-top: 20px;">
+      🎯 Box para triggers
+    </div>
+  </div>
+
+  <script>
+    // Verifica se SparkFX carregou
+    setTimeout(() => {
+      const status = document.getElementById('status');
+      const version = document.getElementById('version');
+      
+      if (window.sparkfx) {
+        status.textContent = '✅ SparkFX carregado com sucesso!';
+        status.style.color = '#22d3ee';
+        version.textContent = `Versão: ${window.sparkfx.version}`;
+        
+        console.log('✅ window.sparkfx:', window.sparkfx);
+        console.log('✅ window.sparkfx.rescan:', window.sparkfx.rescan);
+        
+        // Verifica elementos com fx
+        const fxElements = document.querySelectorAll('[fx]');
+        console.log(`📦 Encontrados ${fxElements.length} elementos com atributo fx`);
+        fxElements.forEach(el => {
+          console.log(`  - fx="${el.getAttribute('fx')}" attached=${!!el.__sparkAttached}`);
+        });
+        
+      } else {
+        status.textContent = '❌ SparkFX NÃO carregou!';
+        status.style.color = '#f97316';
+        console.error('❌ window.sparkfx não existe!');
+      }
+    }, 100);
+
+    function applyManual() {
+      const input = document.getElementById('manual-fx');
+      const box = document.getElementById('manual-box');
+      const value = input.value.trim();
+      
+      console.log('🎬 Aplicando:', value);
+      
+      // Remove e reaplica
+      box.removeAttribute('fx');
+      delete box.__sparkAttached;
+      
+      setTimeout(() => {
+        box.setAttribute('fx', value);
+        if (window.sparkfx?.rescan) {
+          window.sparkfx.rescan();
+          console.log('✅ Rescan executado');
+        }
+      }, 50);
+    }
+
+    function testEffect(fx) {
+      const box = document.getElementById('trigger-box');
+      box.removeAttribute('fx');
+      delete box.__sparkAttached;
+      
+      setTimeout(() => {
+        box.setAttribute('fx', fx);
+        if (window.sparkfx?.rescan) {
+          window.sparkfx.rescan();
+        }
+        // Simula clique para trigger
+        box.click();
+      }, 50);
+    }
+
+    // Log quando clicar em qualquer test-box
+    document.querySelectorAll('.test-box').forEach(box => {
+      box.addEventListener('click', () => {
+        console.log('🎯 Clicado:', box.getAttribute('fx'));
+      });
+    });
+  </script>
+</body>
+</html>

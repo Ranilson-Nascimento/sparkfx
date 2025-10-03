@@ -1,0 +1,1516 @@
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@ranilson/sparkfx — Catálogo completo de efeitos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg:#05070b;
+        --gradient:radial-gradient(120% 120% at 50% 0%,rgba(110,231,255,0.18) 0%,rgba(167,139,250,0.05) 45%,rgba(5,7,11,1) 100%);
+        --card:rgba(14,18,26,0.92);
+        --card-border:rgba(110,231,255,0.22);
+        --card-border-strong:rgba(167,139,250,0.45);
+        --muted:#96a0b6;
+        --muted-strong:#c6e2ff;
+        --brand:#6ee7ff;
+        --brand-strong:#22d3ee;
+        --accent:#a78bfa;
+        --accent-soft:rgba(167,139,250,0.2);
+        --danger:#f97316;
+        --font-body:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+        --font-mono:'Fira Code',ui-monospace,Menlo,Consolas,monospace;
+        --radius-lg:22px;
+        --radius-md:16px;
+        --shadow-card:0 32px 60px -28px rgba(8,12,20,0.75);
+      }
+
+      * {
+        box-sizing:border-box;
+      }
+
+      html,
+      body {
+        margin:0;
+        min-height:100%;
+        background:var(--bg);
+        color:#ecf7ff;
+        font-family:var(--font-body);
+        -webkit-font-smoothing:antialiased;
+      }
+
+      body {
+        position:relative;
+        padding-bottom:96px;
+      }
+
+      body::before {
+        content:"";
+        position:fixed;
+        inset:0;
+        background:var(--gradient);
+        pointer-events:none;
+        z-index:-2;
+      }
+
+      .topbar {
+        position:sticky;
+        top:0;
+        z-index:20;
+        backdrop-filter:blur(18px);
+        background:rgba(5,7,11,0.75);
+        border-bottom:1px solid rgba(110,231,255,0.12);
+      }
+
+      .topbar-inner {
+        max-width:1180px;
+        margin:0 auto;
+        padding:14px 24px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:18px;
+      }
+
+      .brand {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        font-weight:700;
+        font-size:1.1rem;
+        letter-spacing:0.08em;
+        text-transform:uppercase;
+      }
+
+      .brand-logo {
+        width:38px;
+        height:38px;
+        border-radius:14px;
+        background:linear-gradient(135deg,var(--brand),var(--accent));
+        display:grid;
+        place-items:center;
+        color:#041016;
+        font-weight:800;
+        font-size:0.9rem;
+      }
+
+      .nav-links {
+        display:flex;
+        align-items:center;
+        gap:18px;
+        flex-wrap:wrap;
+      }
+
+      .nav-links a {
+        color:var(--muted-strong);
+        text-decoration:none;
+        font-size:0.95rem;
+        font-weight:500;
+        padding:8px 12px;
+        border-radius:999px;
+        transition:background 0.2s ease,color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        background:rgba(110,231,255,0.08);
+        outline:none;
+        color:#f7fbff;
+      }
+
+      main {
+        max-width:1180px;
+        margin:0 auto;
+        padding:48px 24px 72px;
+        display:flex;
+        flex-direction:column;
+        gap:72px;
+      }
+
+      section {
+        position:relative;
+      }
+
+      .hero {
+        display:grid;
+        gap:36px;
+        grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+        align-items:center;
+      }
+
+      .headline {
+        font-size:2.8rem;
+        font-weight:800;
+        line-height:1.05;
+        margin:0 0 12px;
+      }
+
+      .headline .gradient {
+        background:linear-gradient(135deg,var(--brand),var(--accent));
+        background-clip:text;
+        -webkit-background-clip:text;
+        color:transparent;
+      }
+
+      .lead {
+        color:var(--muted);
+        font-size:1.1rem;
+        line-height:1.6;
+        margin:0;
+      }
+
+      .hero-cards {
+        display:grid;
+        gap:18px;
+      }
+
+      .hero-card {
+        background:var(--card);
+        border:1px solid rgba(110,231,255,0.12);
+        border-radius:var(--radius-lg);
+        padding:22px 24px;
+        box-shadow:var(--shadow-card);
+      }
+
+      .hero-card h3 {
+        margin:0 0 8px;
+        font-size:1.05rem;
+      }
+
+      .hero-card p {
+        margin:0;
+        color:var(--muted);
+        font-size:0.98rem;
+        line-height:1.5;
+      }
+
+      .cta-row {
+        margin-top:28px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:16px;
+      }
+
+      .btn {
+        background:linear-gradient(135deg,var(--brand),var(--accent));
+        color:#041016;
+        font-weight:700;
+        border:none;
+        padding:14px 20px;
+        border-radius:14px;
+        cursor:pointer;
+        font-size:0.98rem;
+        transition:transform 0.16s ease, box-shadow 0.16s ease;
+        box-shadow:0 18px 30px -20px rgba(34,211,238,0.9);
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        transform:translateY(-2px);
+        box-shadow:0 20px 36px -18px rgba(167,139,250,0.9);
+        outline:none;
+      }
+
+      .btn-secondary {
+        background:rgba(110,231,255,0.08);
+        color:var(--muted-strong);
+        box-shadow:none;
+      }
+
+      .btn-secondary:hover,
+      .btn-secondary:focus-visible {
+        background:rgba(110,231,255,0.16);
+        color:#f7fbff;
+      }
+
+      .anchors {
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+        margin-top:20px;
+      }
+
+      .chip {
+        background:rgba(255,255,255,0.04);
+        border:1px solid rgba(255,255,255,0.06);
+        border-radius:999px;
+        padding:8px 14px;
+        font-size:0.9rem;
+        color:var(--muted);
+      }
+
+      .playground {
+        background:rgba(10,13,18,0.88);
+        border:1px solid rgba(110,231,255,0.18);
+        border-radius:var(--radius-lg);
+        padding:28px;
+        box-shadow:var(--shadow-card);
+      }
+
+      .section-title {
+        margin:0 0 12px;
+        font-size:1.8rem;
+        font-weight:700;
+      }
+
+      .section-subtitle {
+        margin:0 0 24px;
+        color:var(--muted);
+        font-size:1rem;
+        max-width:620px;
+      }
+
+      .playground-controls {
+        display:flex;
+        flex-wrap:wrap;
+        gap:14px;
+        margin-bottom:22px;
+      }
+
+      .playground-controls input {
+        flex:1;
+        min-width:220px;
+        padding:14px 16px;
+        border-radius:12px;
+        border:1px solid rgba(110,231,255,0.16);
+        background:rgba(255,255,255,0.02);
+        color:#f8fbff;
+        font-size:1rem;
+      }
+
+      .stage {
+        border-radius:16px;
+        border:1px dashed rgba(110,231,255,0.2);
+        background:rgba(110,231,255,0.04);
+        min-height:140px;
+        display:grid;
+        place-items:center;
+        color:var(--muted-strong);
+        font-weight:600;
+      }
+
+      .effect-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+        gap:24px;
+      }
+
+      .effect-card {
+        background:var(--card);
+        border-radius:var(--radius-md);
+        border:1px solid rgba(110,231,255,0.14);
+        padding:22px 24px;
+        box-shadow:var(--shadow-card);
+        display:flex;
+        flex-direction:column;
+        gap:18px;
+        position:relative;
+      }
+
+      .effect-card header {
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        gap:12px;
+      }
+
+      .effect-card h3 {
+        margin:0;
+        font-size:1.2rem;
+        font-weight:700;
+      }
+
+      .badge-group {
+        display:flex;
+        gap:6px;
+      }
+
+      .badge {
+        padding:4px 10px;
+        border-radius:999px;
+        font-size:0.72rem;
+        font-weight:600;
+        letter-spacing:0.03em;
+        text-transform:uppercase;
+      }
+
+      .badge.web {
+        background:rgba(110,231,255,0.12);
+        color:var(--brand);
+      }
+
+      .badge.rn {
+        background:rgba(167,139,250,0.16);
+        color:var(--accent);
+      }
+
+      .badge.dimmed {
+        background:rgba(255,255,255,0.05);
+        color:rgba(255,255,255,0.35);
+      }
+
+      .effect-card p {
+        margin:0;
+        color:var(--muted);
+        line-height:1.5;
+        font-size:0.96rem;
+      }
+
+      .demo-area {
+        display:grid;
+        gap:12px;
+      }
+
+      .demo-row {
+        display:flex;
+        flex-wrap:wrap;
+        gap:14px;
+        align-items:center;
+      }
+
+      .demo-btn {
+        min-width:156px;
+      }
+
+      .demo-block {
+        border-radius:14px;
+        border:1px solid rgba(110,231,255,0.12);
+        background:rgba(255,255,255,0.02);
+        min-height:110px;
+        display:grid;
+        place-items:center;
+        color:var(--muted);
+        font-weight:600;
+      }
+
+      .demo-card-small {
+        width:160px;
+        height:96px;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        background:rgba(255,255,255,0.04);
+        display:grid;
+        place-items:center;
+      }
+
+      .target {
+        border-radius:18px;
+        border:1px dashed rgba(167,139,250,0.4);
+        background:rgba(167,139,250,0.08);
+        padding:18px;
+        color:var(--accent);
+        font-weight:700;
+        min-width:180px;
+        text-align:center;
+      }
+
+      pre {
+        margin:0;
+        background:rgba(5,8,14,0.88);
+        border-radius:12px;
+        border:1px solid rgba(110,231,255,0.12);
+        padding:14px 16px;
+        overflow:auto;
+        font-family:var(--font-mono);
+        font-size:0.85rem;
+        color:#f1f5ff;
+      }
+
+      code {
+        font-family:var(--font-mono);
+      }
+
+      .note {
+        margin:0;
+        font-size:0.85rem;
+        color:rgba(230,239,255,0.75);
+      }
+
+      .note strong {
+        color:var(--brand);
+      }
+
+      .guides {
+        display:grid;
+        gap:24px;
+        grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      }
+
+      .guide-card {
+        background:var(--card);
+        border-radius:var(--radius-md);
+        border:1px solid rgba(167,139,250,0.22);
+        padding:24px 26px;
+        box-shadow:var(--shadow-card);
+        display:grid;
+        gap:18px;
+      }
+
+      .showcase-grid {
+        display:grid;
+        gap:26px;
+        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      }
+
+      .showcase-card {
+        background:linear-gradient(160deg,rgba(17,24,39,0.94) 0%,rgba(15,23,42,0.62) 48%,rgba(26,23,44,0.9) 100%);
+        border-radius:var(--radius-lg);
+        border:1px solid rgba(110,231,255,0.14);
+        padding:26px 28px;
+        box-shadow:0 30px 70px -32px rgba(15,20,32,0.8);
+        display:grid;
+        gap:20px;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .showcase-card::after {
+        content:"";
+        position:absolute;
+        inset:-40% -20% auto;
+        height:140px;
+        background:radial-gradient(circle at top,rgba(110,231,255,0.18),transparent 55%);
+        opacity:0.8;
+        pointer-events:none;
+        transform:rotate(-8deg);
+      }
+
+      .showcase-card h3 {
+        margin:0;
+        font-size:1.15rem;
+        font-weight:700;
+        letter-spacing:0.02em;
+      }
+
+      .showcase-card p {
+        margin:0;
+        color:rgba(226,239,255,0.78);
+        line-height:1.55;
+        font-size:0.97rem;
+      }
+
+      .showcase-actions {
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+        align-items:center;
+      }
+
+      .combo-button {
+        background:linear-gradient(135deg,rgba(34,211,238,0.92),rgba(167,139,250,0.95));
+        color:#06121a;
+        font-weight:700;
+        padding:12px 18px;
+        border-radius:12px;
+        border:none;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        box-shadow:0 22px 40px -22px rgba(56,189,248,0.9);
+        transition:transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .combo-button:hover,
+      .combo-button:focus-visible {
+        transform:translateY(-2px);
+        box-shadow:0 24px 48px -20px rgba(167,139,250,0.9);
+        outline:none;
+      }
+
+      .combo-button svg {
+        width:20px;
+        height:20px;
+      }
+
+      .icon-bubble {
+        width:54px;
+        height:54px;
+        border-radius:18px;
+        display:grid;
+        place-items:center;
+        background:linear-gradient(145deg,rgba(110,231,255,0.2),rgba(167,139,250,0.22));
+        border:1px solid rgba(167,139,250,0.38);
+        color:var(--brand);
+        box-shadow:0 16px 32px -20px rgba(14,165,233,0.65);
+      }
+
+      .showcase-tags {
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+
+      .tag-chip {
+        padding:6px 12px;
+        border-radius:999px;
+        font-size:0.78rem;
+        letter-spacing:0.04em;
+        text-transform:uppercase;
+        background:rgba(255,255,255,0.05);
+        border:1px solid rgba(110,231,255,0.18);
+        color:rgba(223,238,255,0.7);
+      }
+
+      .target.small {
+        min-width:auto;
+        padding:10px 14px;
+        font-size:0.85rem;
+      }
+
+      .icon-row {
+        display:flex;
+        gap:14px;
+        flex-wrap:wrap;
+      }
+
+      .icon-pill {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 16px;
+        border-radius:999px;
+        background:rgba(15,23,42,0.72);
+        border:1px solid rgba(110,231,255,0.18);
+        color:rgba(233,244,255,0.88);
+        font-weight:600;
+        font-size:0.9rem;
+      }
+
+      .icon-pill svg {
+        width:18px;
+        height:18px;
+      }
+
+      .guide-card h3 {
+        margin:0;
+        font-size:1.15rem;
+      }
+
+      .guide-card ul {
+        margin:0;
+        padding-left:20px;
+        color:var(--muted);
+        line-height:1.6;
+      }
+
+      footer {
+        max-width:1180px;
+        margin:56px auto 0;
+        padding:24px;
+        color:rgba(230,239,255,0.6);
+        font-size:0.9rem;
+        display:flex;
+        justify-content:space-between;
+        gap:16px;
+        flex-wrap:wrap;
+      }
+
+      footer a {
+        color:var(--brand);
+        text-decoration:none;
+      }
+
+      .simulate-shake {
+        animation:fx-shake 0.6s ease;
+      }
+
+      .hint {
+        font-size:0.82rem;
+        color:var(--muted);
+        margin:0;
+      }
+
+      @media (max-width:720px) {
+        .headline {
+          font-size:2.2rem;
+        }
+
+        .topbar-inner {
+          flex-direction:column;
+          align-items:flex-start;
+        }
+
+        .nav-links {
+          width:100%;
+        }
+
+        main {
+          padding:36px 18px 60px;
+          gap:60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../packages/sparkfx-web/dist/sparkfx-web.js"></script>
+    <header class="topbar" id="top">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-logo">FX</span>
+          <span>sparkfx</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#playground">Playground</a>
+          <a href="#catalogo">Catálogo</a>
+          <a href="#advanced">Avançado</a>
+          <a href="#sequencias">Sequências</a>
+          <a href="#guias">Guias</a>
+          <a href="https://www.npmjs.com/package/@ranilson/sparkfx-rn" target="_blank" rel="noreferrer">npm</a>
+          <a href="https://github.com/Ranilson-Nascimento/sparkfx" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 class="headline" id="hero-title">
+            Efeitos instantâneos com um único atributo <span class="gradient">fx="..."</span>
+          </h1>
+          <p class="lead">
+            SparkFX unifica 25+ animações avançadas para Web e React Native. Escolha o efeito, conecte o alvo com <code>fxTarget</code> ou <code>useFxTarget()</code> e entregue microinterações dignas de produto final sem boilerplate.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="#playground">Testar agora</a>
+            <a class="btn btn-secondary" href="#catalogo">Ver todos os efeitos</a>
+          </div>
+          <div class="anchors">
+            <span class="chip">RN + web com a mesma sintaxe</span>
+            <span class="chip">Vitest + Expo demo incluídos</span>
+            <span class="chip">Hooks <code>useFX()</code> e <code>useFxTarget()</code></span>
+          </div>
+        </div>
+        <div class="hero-cards">
+          <div class="hero-card">
+            <h3>Playground por atributo</h3>
+            <p>Digite sequências como <code>bounce|ripple|particles</code> para encadear efeitos. São 25+ efeitos analisados via <code>parseFx()</code>.</p>
+          </div>
+          <div class="hero-card">
+            <h3>Física refinada</h3>
+            <p>De simples <code>bounce</code> até sistemas de partículas com gravidade, espirais logarítmicas e rotações 3D com perspectiva.</p>
+          </div>
+          <div class="hero-card">
+            <h3>Catálogo interativo</h3>
+            <p>Teste todos os 25+ efeitos ao vivo: básicos, avançados e sequências épicas prontas para produção.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="playground" id="playground" aria-labelledby="playground-title">
+        <h2 class="section-title" id="playground-title">Playground ao vivo</h2>
+        <p class="section-subtitle">Combine efeitos com pipes, ajuste argumentos e veja instantaneamente. Exemplos: <code>bounce|ripple(r=120)</code>, <code>toast(text='Tudo certo')</code>, <code>fly(to=cartDemo)</code>.</p>
+        <div class="playground-controls">
+          <input id="fx-input" type="text" placeholder="bounce|ripple|toast(text='Sucesso!')" aria-label="Sequência fx" />
+          <button class="btn" id="fx-apply">Aplicar efeito</button>
+          <button class="btn btn-secondary" id="fx-reset">Limpar</button>
+        </div>
+        <div class="stage" id="fx-stage" fx="bounce|ripple">
+          Clique em "Aplicar" para testar — este bloco aceita <code>fx</code>
+        </div>
+      </section>
+
+      <section id="catalogo" aria-labelledby="catalogo-title">
+        <h2 class="section-title" id="catalogo-title">Catálogo completo de efeitos</h2>
+        <p class="section-subtitle">Todos os efeitos disponíveis nos pacotes. Cada cartão informa disponibilidade e variações. Clique ou passe o mouse onde indicado para acionar.</p>
+        <div class="effect-grid">
+          <article class="effect-card" id="effect-bounce">
+            <header>
+              <h3>bounce</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge rn">React Native</span>
+              </div>
+            </header>
+            <p>Compressão elástica ao pressionar, ideal para CTAs. Ajuste a escala com <code>s</code> (ex.: <code>0.9</code>).</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="bounce">Experimentar bounce</button>
+              <pre><code>&lt;button fx="bounce"&gt;Comprar&lt;/button&gt;</code></pre>
+              <p class="note"><strong>Dica:</strong> encadeie com <code>ripple</code> para feedback tátil completo.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-ripple">
+            <header>
+              <h3>ripple</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge rn">React Native</span>
+              </div>
+            </header>
+            <p>Efeito de onda inspirado no Material Design. Controle o raio com <code>r</code> e a opacidade inicial com <code>op</code>.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="ripple(r=110, op=0.2)">Tocar ripple</button>
+              <pre><code>&lt;button fx="ripple(r=110, op=0.2)"&gt;Enviar&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-shake">
+            <header>
+              <h3>shake</h3>
+              <div class="badge-group">
+                <span class="badge dimmed web">Web</span>
+                <span class="badge rn">React Native</span>
+              </div>
+            </header>
+            <p>Animação rápida que sacode o componente em caso de erro. Disponível no pacote React Native; abaixo simulamos o efeito para referência visual.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" data-demo-shake>Simular shake</button>
+              <pre><code>&lt;Button fx="shake" title="Tentar novamente" /&gt;</code></pre>
+              <p class="note">No React Native o shake é automático via <code>fx="shake"</code>; combine com validações para destacá-las.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-fly">
+            <header>
+              <h3>fly</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge rn">React Native</span>
+              </div>
+            </header>
+            <p>Clona o elemento, calcula trajetória Bézier e pousa no alvo registrado. Ideal para carrinhos e favoritos.</p>
+            <div class="demo-area">
+              <div class="demo-row">
+                <button class="btn demo-btn" fx="fly(to=cartDemo)">Adicionar ao carrinho</button>
+                <div class="target" id="cartDemo" data-fx-target="cartDemo">Carrinho</div>
+              </div>
+              <pre><code>&lt;button fx="fly(to=cart)"&gt;+ carrinho&lt;/button&gt;
+&lt;View fxTarget="cart" /&gt; <!-- RN -->
+&lt;div data-fx-target="cart"&gt;&lt;/div&gt; <!-- Web --></code></pre>
+              <p class="note">Use o hook <code>useFxTarget()</code> no React Native para registrar alvos com refs e <code>onLayout</code>.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-toast">
+            <header>
+              <h3>toast</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge rn">React Native</span>
+              </div>
+            </header>
+            <p>Gera um toast elegante com mensagem customizável. Ajuste a duração com <code>t</code> ou <code>duration</code>.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="toast(text='Salvo com sucesso!', t=1800)">Disparar toast</button>
+              <pre><code>&lt;button fx="toast(text='Salvo!')"&gt;Salvar&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-confetti">
+            <header>
+              <h3>confetti</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge dimmed rn">React Native</span>
+              </div>
+            </header>
+            <p>Lança partículas coloridas a partir do elemento clicado. Disponível no pacote web.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="confetti(count=60, spread=70)">Celebrar</button>
+              <pre><code>&lt;button fx="confetti(count=60)"&gt;Finalizar pedido&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-hoverlift">
+            <header>
+              <h3>hoverlift</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge dimmed rn">React Native</span>
+              </div>
+            </header>
+            <p>Leve elevação e sombra suave ao passar o mouse. Combine com <code>shine</code> para cartões chamativos.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="hoverlift">
+                Hover me
+              </div>
+              <pre><code>&lt;div fx="hoverlift"&gt;Card&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-shine">
+            <header>
+              <h3>shine</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge dimmed rn">React Native</span>
+              </div>
+            </header>
+            <p>Reflexo contínuo atravessando o componente. Ótimo para itens em destaque e vitrines.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="shine">
+                Shine
+              </div>
+              <pre><code>&lt;div fx="shine"&gt;Plano PRO&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-skeleton">
+            <header>
+              <h3>skeleton</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge dimmed rn">React Native</span>
+              </div>
+            </header>
+            <p>Placeholder animado para estados de carregamento. Aplicado enquanto dados chegam.</p>
+            <div class="demo-area">
+              <div class="demo-block" fx="skeleton"></div>
+              <pre><code>&lt;div fx="skeleton" style="height:120px"&gt;&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-neon">
+            <header>
+              <h3>neon</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+                <span class="badge dimmed rn">React Native</span>
+              </div>
+            </header>
+            <p>Borda luminosa contínua. Combine com <code>hoverlift</code> para botões de destaque em temas dark.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="neon">
+                Neon
+              </div>
+              <pre><code>&lt;div fx="neon"&gt;Badge&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="advanced" aria-labelledby="advanced-title">
+        <h2 class="section-title" id="advanced-title">✨ Efeitos Avançados — Próximo Nível</h2>
+        <p class="section-subtitle">16 novos efeitos especializados com física refinada e animações complexas. Use sozinhos ou encadeados para criar experiências únicas.</p>
+        <div class="effect-grid">
+          <article class="effect-card" id="effect-jelly" fx="hoverlift">
+            <header>
+              <h3>jelly</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Squash & stretch extremo tipo desenho animado. Perfeito para CTAs lúdicos e interfaces infantis.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="jelly">🎉 Jelly Bounce</button>
+              <pre><code>&lt;button fx="jelly"&gt;Clique&lt;/button&gt;</code></pre>
+              <p class="note">Combina bem com <code>particles</code> para celebrações.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-wobble" fx="hoverlift">
+            <header>
+              <h3>wobble</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Oscilação pendular com rotação e deslocamento. Chama atenção sem ser agressivo.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="wobble">⚠️ Atenção</button>
+              <pre><code>&lt;div fx="wobble"&gt;Alerta&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-pulse" fx="hoverlift">
+            <header>
+              <h3>pulse</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Pulso contínuo com variação de escala e opacidade. Ideal para indicadores ao vivo.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="pulse">
+                🔴 LIVE
+              </div>
+              <pre><code>&lt;span fx="pulse"&gt;● Ao vivo&lt;/span&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-heartbeat" fx="hoverlift">
+            <header>
+              <h3>heartbeat</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Padrão de dupla pulsação como batimento cardíaco. Transmite urgência ou vitalidade.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="heartbeat">
+                ❤️ Favorito
+              </div>
+              <pre><code>&lt;div fx="heartbeat"&gt;♥️&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-glow" fx="hoverlift">
+            <header>
+              <h3>glow</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Halo pulsante via <code>drop-shadow</code> com cores vibrantes. Destaque premium sem bordas.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="glow">
+                ✨ Premium
+              </div>
+              <pre><code>&lt;div fx="glow"&gt;Pro&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-float" fx="hoverlift">
+            <header>
+              <h3>float</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Flutuação suave vertical em loop. Simula leveza e movimento orgânico.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="float">
+                ☁️ Cloud
+              </div>
+              <pre><code>&lt;img fx="float" src="..." /&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-glitch" fx="hoverlift">
+            <header>
+              <h3>glitch</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Distorção digital tipo cyberpunk com deslocamento de camadas. Efeito futurista.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="glitch">
+                ⚡ GLITCH
+              </div>
+              <pre><code>&lt;h1 fx="glitch"&gt;ERROR 404&lt;/h1&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-tilt" fx="hoverlift">
+            <header>
+              <h3>tilt</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Rotação 3D seguindo o cursor com perspectiva. Efeito de card "físico".</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="tilt">
+                🎴 Hover 3D
+              </div>
+              <pre><code>&lt;div fx="tilt"&gt;Card&lt;/div&gt;</code></pre>
+              <p class="note">Passe o mouse para ver o efeito de profundidade.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-morphbg" fx="hoverlift">
+            <header>
+              <h3>morphbg</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Gradiente animado que muda de posição. Personalize cores com <code>data-c1</code>, <code>data-c2</code>, <code>data-c3</code>.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="morphbg" data-c1="#6ee7ff" data-c2="#a78bfa" data-c3="#f472b6">
+                Morphing
+              </div>
+              <pre><code>&lt;div fx="morphbg" data-c1="#..." data-c2="#..."&gt;&lt;/div&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-particles" fx="hoverlift">
+            <header>
+              <h3>particles</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Explosão de partículas em todas as direções com gravidade. Customize contagem e cores.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="particles(count=40)">💥 Explodir</button>
+              <pre><code>&lt;button fx="particles(count=40)"&gt;Boom&lt;/button&gt;</code></pre>
+              <p class="note">Parâmetros: <code>count</code>, <code>colors</code>, <code>size</code>.</p>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-spiral" fx="hoverlift">
+            <header>
+              <h3>spiral</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Espiral de partículas com rotação logarítmica. Elegante para transições místicas.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="spiral(turns=3, r=160)">🌀 Espiral</button>
+              <pre><code>&lt;button fx="spiral(turns=3)"&gt;Portal&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-magneticpull" fx="hoverlift">
+            <header>
+              <h3>magneticpull</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Partículas fluem até o alvo com easing suave. Visualiza conexão entre origem e destino.</p>
+            <div class="demo-area">
+              <div class="demo-row">
+                <button class="btn demo-btn" fx="magneticpull(to=magnetTarget)">🧲 Puxar</button>
+                <div class="target small" id="magnetTarget" data-fx-target="magnetTarget">Alvo</div>
+              </div>
+              <pre><code>&lt;button fx="magneticpull(to=cart)"&gt;Atrair&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-shockwave" fx="hoverlift">
+            <header>
+              <h3>shockwave</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Onda expansiva circular tipo impacto. Perfeito para hits, confirmações e poder.</p>
+            <div class="demo-area">
+              <button class="btn demo-btn" fx="shockwave(r=220)">⚡ Impacto</button>
+              <pre><code>&lt;button fx="shockwave(r=220)"&gt;POW&lt;/button&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-typewriter" fx="hoverlift">
+            <header>
+              <h3>typewriter</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Texto digitado letra por letra. Ideal para tutoriais, onboarding e narrativas.</p>
+            <div class="demo-area">
+              <div class="demo-block" fx="typewriter(speed=50)" style="padding:16px;">
+                Este texto aparece letra por letra...
+              </div>
+              <pre><code>&lt;p fx="typewriter(speed=50)"&gt;Olá, mundo!&lt;/p&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-countup" fx="hoverlift">
+            <header>
+              <h3>countup</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Contador animado de números. Usa interpolação linear entre <code>from</code> e <code>to</code>.</p>
+            <div class="demo-area">
+              <div class="demo-card-small" fx="countup(from=0, to=999, duration=1500)" style="font-size:2rem;font-weight:700;">
+                0
+              </div>
+              <pre><code>&lt;span fx="countup(from=0, to=999)"&gt;0&lt;/span&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="effect-card" id="effect-stagger" fx="hoverlift">
+            <header>
+              <h3>stagger</h3>
+              <div class="badge-group">
+                <span class="badge web">Web</span>
+              </div>
+            </header>
+            <p>Aparição sequencial de filhos com delay. Transforma listas em animações orquestradas.</p>
+            <div class="demo-area">
+              <div fx="stagger(delay=100)" class="demo-block" style="padding:12px;display:flex;flex-direction:column;gap:8px;">
+                <div style="background:rgba(110,231,255,0.12);padding:10px;border-radius:8px;">Item 1</div>
+                <div style="background:rgba(110,231,255,0.12);padding:10px;border-radius:8px;">Item 2</div>
+                <div style="background:rgba(110,231,255,0.12);padding:10px;border-radius:8px;">Item 3</div>
+              </div>
+              <pre><code>&lt;ul fx="stagger(delay=80)"&gt;
+  &lt;li&gt;A&lt;/li&gt;
+  &lt;li&gt;B&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="sequencias" aria-labelledby="sequencias-title">
+        <h2 class="section-title" id="sequencias-title">Sequências avançadas e experiências reais</h2>
+        <p class="section-subtitle">Combine efeitos para criar momentos memoráveis. Abaixo estão padrões usados em landing pages, e-commerces e apps móveis — todos construídos somente com <code>fx="..."</code> e atributos auxiliares.</p>
+        <div class="showcase-grid">
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="shine|neon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M5 6h11" />
+                <path d="M5 18h7" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">CTA</span>
+              <span class="tag-chip">web + rn</span>
+            </div>
+            <h3>CTA turbocharged</h3>
+            <p>Combinação clássica de <code>bounce</code> + <code>ripple</code> com celebração e retorno visual. Ótimo para conversões.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="bounce|ripple|confetti(count=90)|toast(text='Pedido confirmado!')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12l5 5L19 7" />
+                </svg>
+                Quero agora
+              </button>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="neon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-6-4.35-6-10a6 6 0 0112 0c0 5.65-6 10-6 10z" />
+                <circle cx="12" cy="11" r="2" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">Wishlist</span>
+              <span class="tag-chip">fly()</span>
+            </div>
+            <h3>Favoritar com fly + toast</h3>
+            <p>O item voa até os favoritos enquanto um toast confirma a ação. Use <code>useFxTarget()</code> no RN para registrar o alvo.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="bounce|fly(to=wishlistDemo)|toast(text='Salvo nos favoritos!')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21l-7-5.2V5a2 2 0 012-2h10a2 2 0 012 2v10.8L12 21z" />
+                </svg>
+                Guardar
+              </button>
+              <div class="target small" id="wishlistDemo" data-fx-target="wishlistDemo">Favoritos</div>
+            </div>
+            <p class="hint">RN: <code>&lt;FXTarget id="wishlistDemo" /&gt;</code> • Web: <code>data-fx-target="wishlistDemo"</code>.</p>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine|neon">
+            <div class="icon-bubble" fx="shine|neon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l2.09 6.26H20l-5 3.64 1.91 6.1L12 15.77l-4.91 3.23L9 12.9 4 9.26h5.91z" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">Hero</span>
+              <span class="tag-chip">hover</span>
+            </div>
+            <h3>Card premium brilhante</h3>
+            <p>Hover lift + shine + neon entregam aquela sensação "premium" típica de vitrines SaaS.</p>
+            <div class="demo-card-small" fx="hoverlift|shine|neon" style="width:200px;height:110px;">
+              Plano PRO
+            </div>
+            <div class="icon-row">
+              <div class="icon-pill" fx="shine">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18" />
+                  <path d="M5 12h14" />
+                </svg>
+                Upgrade instantâneo
+              </div>
+              <div class="icon-pill" fx="shine|neon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18V5l12-2v13" />
+                  <path d="M9 18a3 3 0 106 0" />
+                </svg>
+                99,9% uptime
+              </div>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="shine">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h16" />
+                <path d="M5 5l.9 9.1a4 4 0 004 3.6h4.2a4 4 0 004-3.6L19 5" />
+                <path d="M15 9a3 3 0 00-6 0" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">Checkout</span>
+              <span class="tag-chip">confirmação</span>
+            </div>
+            <h3>Confirmação com confetti + toast</h3>
+            <p>Ideal para onboarding ou finalização de compra. Notifica, celebra e mantém o usuário engajado.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="bounce|ripple|toast(text='Inscrição concluída!', t=2200)|confetti(count=70)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5v14" />
+                  <path d="M5 12h14" />
+                </svg>
+                Finalizar inscrição
+              </button>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="neon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h16" />
+                <path d="M10 11h.01" />
+                <path d="M14 11h.01" />
+                <path d="M8 15h8" />
+                <path d="M12 3L2 9l10 6 10-6-10-6z" />
+                <path d="M2 15l10 6 10-6" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">Alertas</span>
+              <span class="tag-chip">microcopy</span>
+            </div>
+            <h3>Pílulas interativas</h3>
+            <p>Icones + ripple + toast criam alertas acionáveis. Perfeito para banners e avisos inline.</p>
+            <div class="icon-row">
+              <button class="combo-button" fx="ripple|toast(text='Newsletter ativada!')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 5h18" />
+                  <path d="M3 5l9 7 9-7" />
+                  <path d="M21 19H3V5" />
+                </svg>
+                Entrar na lista
+              </button>
+              <button class="combo-button" fx="bounce|toast(text='Modo escuro ativado!')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.8A9 9 0 0111.2 3a7 7 0 109.8 9.8z" />
+                </svg>
+                Dark mode
+              </button>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|glow">
+            <div class="icon-bubble" fx="pulse|glow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">⚡ Avançado</span>
+              <span class="tag-chip">particles + shockwave</span>
+            </div>
+            <h3>Super explosão épica</h3>
+            <p>Combina <code>jelly</code>, <code>particles</code>, <code>shockwave</code> e <code>toast</code> para criar momento de celebração máximo.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="jelly|particles(count=50)|shockwave(r=240)|toast(text='🎉 MEGA COMBO!')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M2 12h20" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+                MEGA COMBO
+              </button>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|float">
+            <div class="icon-bubble" fx="float|glow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">🌀 Místico</span>
+              <span class="tag-chip">spiral + magneticpull</span>
+            </div>
+            <h3>Portal mágico</h3>
+            <p>Usa <code>spiral</code> com <code>magneticpull</code> para simular portal sugando energia até o alvo.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="wobble|spiral(turns=4, r=180)|magneticpull(to=portalTarget)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                </svg>
+                Abrir Portal
+              </button>
+              <div class="target small" id="portalTarget" data-fx-target="portalTarget">🌀 Destino</div>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="tilt|morphbg" data-c1="#6ee7ff" data-c2="#a78bfa" data-c3="#f472b6">
+            <div class="icon-bubble" fx="heartbeat|neon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">💖 Premium</span>
+              <span class="tag-chip">morphbg + tilt + heartbeat</span>
+            </div>
+            <h3>Card holográfico luxo</h3>
+            <p>Fundo gradiente animado + rotação 3D + pulso cardíaco. Perfeito para planos VIP e destaques especiais.</p>
+            <div class="demo-card-small" fx="tilt|heartbeat|glow" style="width:220px;height:140px;background:linear-gradient(135deg,#6ee7ff,#a78bfa,#f472b6);display:grid;place-items:center;font-weight:700;">
+              ⭐ VIP ULTIMATE
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="glitch">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4l16 16M4 20L20 4" />
+                <path d="M12 2v20" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">🎮 Cyberpunk</span>
+              <span class="tag-chip">glitch + neon</span>
+            </div>
+            <h3>UI futurista</h3>
+            <p>Efeito glitch digital com borda neon pulsante. Tema sci-fi e erro estilizado.</p>
+            <div class="showcase-actions">
+              <button class="combo-button" fx="glitch|neon|shockwave(color='rgba(167,139,250,0.7)')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                HACK SYSTEM
+              </button>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift|shine">
+            <div class="icon-bubble" fx="pulse">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">📈 Dashboard</span>
+              <span class="tag-chip">countup + pulse</span>
+            </div>
+            <h3>Métricas ao vivo</h3>
+            <p>Contador animado com pulso contínuo indicando dados em tempo real.</p>
+            <div class="demo-card-small" fx="pulse" style="width:220px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+              <div style="font-size:2.4rem;font-weight:800;color:#6ee7ff;" fx="countup(from=0, to=1234, duration=1800)">0</div>
+              <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);">Vendas hoje</div>
+            </div>
+          </article>
+
+          <article class="showcase-card" fx="hoverlift">
+            <div class="icon-bubble" fx="wobble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+              </svg>
+            </div>
+            <div class="showcase-tags">
+              <span class="tag-chip">📝 Tutorial</span>
+              <span class="tag-chip">typewriter + stagger</span>
+            </div>
+            <h3>Onboarding narrativo</h3>
+            <p>Texto digitado + aparição sequencial de cards de tutorial criam fluxo envolvente.</p>
+            <div class="demo-block" fx="typewriter(speed=40)" style="padding:16px;font-size:1.05rem;line-height:1.5;">
+              Bem-vindo ao SparkFX! Vamos começar...
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="guias" aria-labelledby="guias-title">
+        <h2 class="section-title" id="guias-title">Guias rápidos</h2>
+        <p class="section-subtitle">Referência mínima para colocar o pacote em produção. O repositório inclui testes Vitest, demo Expo e este playground estático.</p>
+        <div class="guides">
+          <article class="guide-card">
+            <h3>React Native</h3>
+            <pre><code>import { FXProvider, FXTarget, useFxTarget } from '@ranilson/sparkfx-rn';
+
+export function App() {
+  const cart = useFxTarget('cart');
+
+  return (
+    &lt;FXProvider&gt;
+      &lt;Button fx="bounce|ripple|fly(cart)" title="Adicionar" /&gt;
+      &lt;FXTarget id="cart" label="Carrinho" ref={cart.ref} onLayout={cart.onLayout} /&gt;
+    &lt;/FXProvider&gt;
+  );
+}</code></pre>
+            <ul>
+              <li>Registre alvos com <code>&lt;FXTarget /&gt;</code> ou <code>useFxTarget()</code>.</li>
+              <li><code>toast</code> e <code>fly</code> usam <code>FXProvider</code> para overlays seguros.</li>
+              <li>Testes com <code>npm test</code> (Vitest + React Testing Library).</li>
+            </ul>
+          </article>
+          <article class="guide-card">
+            <h3>Web</h3>
+            <pre><code>&lt;script src="/sparkfx-web.js" defer&gt;&lt;/script&gt;
+
+&lt;button fx="bounce|toast(text='Oi!')"&gt;Comprar&lt;/button&gt;
+
+&lt;div id="cart" data-fx-target="cart"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  window.sparkfx?.rescan?.();
+&lt;/script&gt;</code></pre>
+            <ul>
+              <li>O bundle adiciona CSS, observers e registra alvos por <code>id</code> ou <code>data-fx-target</code>.</li>
+              <li>Encadeie efeitos com pipes: <code>bounce|ripple|confetti</code>.</li>
+              <li>Chame <code>sparkfx.rescan()</code> após inserir HTML dinâmico.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>Feito com ♡ para experiências polidas. © 2025 sparkfx.</span>
+      <span><a href="#top">Voltar ao topo</a></span>
+    </footer>
+
+    <script>
+      const playgroundInput = document.getElementById('fx-input');
+      const playgroundStage = document.getElementById('fx-stage');
+      const applyBtn = document.getElementById('fx-apply');
+      const resetBtn = document.getElementById('fx-reset');
+
+      function applyFxSequence(seq) {
+        const value = seq?.trim();
+        if (!value) return;
+        playgroundStage.setAttribute('fx', value);
+        if (window.sparkfx?.rescan) window.sparkfx.rescan();
+      }
+
+      applyBtn?.addEventListener('click', () => {
+        applyFxSequence(playgroundInput?.value || 'bounce|ripple');
+      });
+
+      playgroundInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          applyFxSequence(playgroundInput.value || 'bounce|ripple');
+        }
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        playgroundStage.removeAttribute('fx');
+        playgroundStage.textContent = 'fx limpo — adicione um atributo para testar';
+        if (window.sparkfx?.rescan) window.sparkfx.rescan();
+        setTimeout(() => {
+          playgroundStage.textContent = 'Clique em "Aplicar" para testar — este bloco aceita fx';
+          playgroundStage.setAttribute('fx', 'bounce|ripple');
+          if (window.sparkfx?.rescan) window.sparkfx.rescan();
+        }, 900);
+      });
+
+      document.querySelectorAll('[data-demo-shake]').forEach((button) => {
+        button.addEventListener('click', () => {
+          button.classList.remove('simulate-shake');
+          void button.offsetWidth;
+          button.classList.add('simulate-shake');
+        });
+      });
+
+      if (window.sparkfx?.rescan) {
+        window.sparkfx.rescan();
+      }
+    </script>
+  </body>
+</html>

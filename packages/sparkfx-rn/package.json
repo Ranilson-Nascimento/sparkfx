@@ -1,0 +1,50 @@
+{
+  "name": "@ranilson/sparkfx-rn",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "react-native": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./auto": "./dist/auto.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ranilson-Nascimento/sparkfx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ranilson-Nascimento/sparkfx/issues"
+  },
+  "homepage": "https://Ranilson-Nascimento.github.io/sparkfx/docs/",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/auto.tsx --format cjs,esm --dts --sourcemap",
+    "dev": "tsup src/index.ts src/auto.tsx --watch --sourcemap",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.72",
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-gesture-handler": ">=2.0.0"
+  },
+  "devDependencies": {
+  "@testing-library/react": "^13.4.0",
+    "@types/react": "^18.2.43",
+  "@types/react-dom": "18.2.18",
+    "react": "^18.2.0",
+  "react-dom": "18.2.0",
+  "react-native": "0.72.17",
+    "react-native-reanimated": "^3.7.2",
+  "jsdom": "^24.0.0",
+  "tsup": "^8.5.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
+  }
+}

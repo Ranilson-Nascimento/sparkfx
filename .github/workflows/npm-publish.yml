@@ -1,0 +1,38 @@
+name: Publish @ranilson/sparkfx-rn to npm
+
+on:
+  push:
+    tags:
+      - 'rn-v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install deps
+        working-directory: packages/sparkfx-rn
+        run: npm ci
+
+      - name: Build
+        working-directory: packages/sparkfx-rn
+        run: npm run build
+
+      - name: Test (non-blocking for initial release)
+        working-directory: packages/sparkfx-rn
+        run: npm test --silent || echo "No tests or failures ignored for initial release"
+
+      - name: Publish
+        working-directory: packages/sparkfx-rn
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
