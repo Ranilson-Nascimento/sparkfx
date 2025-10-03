@@ -288,6 +288,5 @@ Se SparkFX te ajudou, considere dar uma ⭐ no GitHub!
 
 ---
 
-Se SparkFX te ajudou, considere marcar o repositório com uma estrela.
 
 
